@@ -104,20 +104,23 @@
         .btn-fav {
             background: transparent;
             border: none;
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             cursor: pointer;
             transition: transform 0.15s ease;
             padding: 2px 4px;
             outline: none;
             user-select: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-fav:hover {
-            transform: scale(1.25);
+            transform: scale(1.3);
         }
 
         .btn-fav.active {
-            filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.6));
+            filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.7));
         }
 
         /* Panou Filtrare */
@@ -533,7 +536,9 @@
             </div>
         </header>
 
+        <!-- ========================================== -->
         <!-- MOD 1: RAPORT REDUCERI PDF -->
+        <!-- ========================================== -->
         <section id="viewDeals" class="view-mode-section active">
             <div class="controls-panel">
                 <div class="search-box">
@@ -572,7 +577,9 @@
             </div>
         </section>
 
-        <!-- MOD 2: CATALOG COMPLET (34K) -->
+        <!-- ========================================== -->
+        <!-- MOD 2: CATALOG COMPLET IDENTIC (34K) -->
+        <!-- ========================================== -->
         <section id="viewCatalog" class="view-mode-section">
             <div class="controls-panel">
                 <div class="search-box">
@@ -673,7 +680,9 @@
             </nav>
         </section>
 
+        <!-- ========================================== -->
         <!-- MOD 3: FAVORITE -->
+        <!-- ========================================== -->
         <section id="viewFavs" class="view-mode-section">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
                 <h2>Produse Favorite Salvate (<span id="favListCount">0</span>)</h2>
@@ -704,127 +713,18 @@
 
     <script>
         // =========================================================================
-        // MANAGEMENT FAVORITE UNIFICAT (PE BAZA DE IDENTIFICATOR COMUN)
+        // UTILITARE GLOBALE & IDENTIFICARE CANONICA UNICA
         // =========================================================================
-        let FAVORITES = JSON.parse(localStorage.getItem('bf_favs_2026') || '{}');
-
-        // Generam o cheie comuna normalizata bazata pe denumirea produsului
-        function getProductKey(name) {
-            if (!name) return '';
-            return normalizeText(name).replace(/[^a-z0-9]/g, '');
-        }
-
-        function saveFavorites() {
-            localStorage.setItem('bf_favs_2026', JSON.stringify(FAVORITES));
-            updateFavBadge();
-            refreshAllFavIcons();
-        }
-
-        function toggleFavoriteByItem(itemObj) {
-            const key = getProductKey(itemObj.name);
-            if (!key) return;
-
-            if (FAVORITES[key]) {
-                delete FAVORITES[key];
-            } else {
-                FAVORITES[key] = {
-                    key: key,
-                    nr: itemObj.nr || '',
-                    name: itemObj.name,
-                    price_bf: itemObj.price_bf || '',
-                    price_emag: itemObj.price_emag || '',
-                    discount: itemObj.discount || '',
-                    code: itemObj.code || '',
-                    source: itemObj.source || 'catalog'
-                };
-            }
-            saveFavorites();
-
-            if (document.getElementById('viewFavs').classList.contains('active')) {
-                renderFavoritesUI();
-            }
-        }
-
-        function updateFavBadge() {
-            const count = Object.keys(FAVORITES).length;
-            document.getElementById('favCount').textContent = count;
-            const fListEl = document.getElementById('favListCount');
-            if (fListEl) fListEl.textContent = count;
-        }
-
-        function refreshAllFavIcons() {
-            document.querySelectorAll('.btn-fav').forEach(btn => {
-                const key = btn.getAttribute('data-prod-key');
-                if (key && FAVORITES[key]) {
-                    btn.innerHTML = '❤️';
-                    btn.classList.add('active');
-                } else {
-                    btn.innerHTML = '🤍';
-                    btn.classList.remove('active');
-                }
-            });
-        }
-
-        function clearAllFavorites() {
-            if (confirm('Sigur dorești să elimini toate produsele din lista de favorite?')) {
-                FAVORITES = {};
-                saveFavorites();
-                renderFavoritesUI();
-            }
-        }
-
-        function renderFavoritesUI() {
-            const tbody = document.getElementById('favsTableBody');
-            const keys = Object.keys(FAVORITES);
-
-            if (keys.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 40px; color: var(--text-muted);">Nu ai adăugat încă niciun produs la favorite. Apasă pe 🤍 pe oricare rând sau card!</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = keys.map(k => {
-                const item = FAVORITES[k];
-                const url = buildEmagUrl(item.code, item.name);
-                const isNeg = (item.discount || '').includes('-');
-                const itemPayload = escapeQuotes(JSON.stringify(item));
-
-                return `
-          <tr>
-            <td style="text-align: center;">
-              <button type="button" class="btn-fav active" data-prod-key="${item.key}" onclick="toggleFavoriteByItem(${itemPayload})" title="Elimină de la favorite">❤️</button>
-            </td>
-            <td><span class="nr-badge">${item.nr ? '#' + item.nr : '—'}</span></td>
-            <td>
-              <a href="${url}" target="_blank" rel="noopener noreferrer" class="link-deal">${escapeHtml(item.name)}</a>
-            </td>
-            <td style="text-align: right;">
-              <div class="price-bf">${item.price_bf ? item.price_bf + (String(item.price_bf).includes('lei') ? '' : ' lei') : '—'}</div>
-              ${item.price_emag ? `<div class="price-emag-old">${item.price_emag} lei live</div>` : ''}
-            </td>
-            <td style="text-align: center;">
-              ${item.discount ? `<span class="discount-pill ${isNeg ? 'negative' : ''}">${item.discount}</span>` : '—'}
-            </td>
-            <td style="text-align: center;">
-              <a href="${url}" target="_blank" rel="noopener noreferrer" class="open-btn" title="Deschide pe eMAG">↗</a>
-            </td>
-          </tr>
-        `;
-            }).join('');
-        }
-
-        function escapeHtml(str) {
-            if (!str) return '';
-            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-        }
-
-        function escapeQuotes(str) {
-            if (!str) return '';
-            return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
-        }
-
         function normalizeText(str) {
             if (!str) return '';
             return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        // Cheie unică comună generată din primele 35 de caractere alfanumerice ale numelui (elimină diferențele de punctuație și "…")
+        function getCanonicalKey(name) {
+            if (!name) return '';
+            const clean = normalizeText(name).replace(/…|\.\.\./g, '').replace(/[^a-z0-9]/g, '');
+            return clean.substring(0, 35);
         }
 
         function buildEmagUrl(code, name) {
@@ -856,8 +756,157 @@
             return text.replace(regex, '<span class="highlight">$1</span>');
         }
 
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
         // =========================================================================
-        // 1. RAPORT REDUCERI PDF
+        // MANAGEMENT PERSISTENT FAVORITE (LOCALSTORAGE)
+        // =========================================================================
+        let FAVORITES = JSON.parse(localStorage.getItem('bf_favs_2026') || '{}');
+
+        function saveFavorites() {
+            localStorage.setItem('bf_favs_2026', JSON.stringify(FAVORITES));
+            updateFavBadge();
+            refreshAllFavIcons();
+        }
+
+        function updateFavBadge() {
+            const count = Object.keys(FAVORITES).length;
+            document.getElementById('favCount').textContent = count;
+            const fListEl = document.getElementById('favListCount');
+            if (fListEl) fListEl.textContent = count;
+        }
+
+        function refreshAllFavIcons() {
+            document.querySelectorAll('.btn-fav').forEach(btn => {
+                const key = btn.getAttribute('data-prod-key');
+                if (key && FAVORITES[key]) {
+                    btn.innerHTML = '❤️';
+                    btn.classList.add('active');
+                } else {
+                    btn.innerHTML = '🤍';
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // Toggle din Raportul PDF pe baza de sectiune si index curat
+        window.togglePdfFav = function (secId, idx) {
+            if (!DEALS_RAW_DATA || !DEALS_RAW_DATA[secId]) return;
+            const item = DEALS_RAW_DATA[secId][idx];
+            if (!item) return;
+
+            const key = getCanonicalKey(item.name);
+            if (!key) return;
+
+            if (FAVORITES[key]) {
+                delete FAVORITES[key];
+            } else {
+                FAVORITES[key] = {
+                    key: key,
+                    nr: item.nr || '',
+                    name: item.name,
+                    price_bf: item.price_bf || '',
+                    price_emag: item.price_emag || '',
+                    discount: item.discount || '',
+                    code: item.code || '',
+                    source: 'pdf'
+                };
+            }
+            saveFavorites();
+            if (document.getElementById('viewFavs').classList.contains('active')) {
+                renderFavoritesUI();
+            }
+        };
+
+        // Toggle din Catalogul Complet pe baza de numar produs (nr)
+        window.toggleCatalogFav = function (nr) {
+            const p = ALL_PRODUCTS.find(x => x.nr === nr);
+            if (!p) return;
+
+            const key = getCanonicalKey(p.name);
+            if (!key) return;
+
+            if (FAVORITES[key]) {
+                delete FAVORITES[key];
+            } else {
+                const priceStr = p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) : '';
+                FAVORITES[key] = {
+                    key: key,
+                    nr: p.nr,
+                    name: p.name,
+                    price_bf: priceStr,
+                    price_emag: '',
+                    discount: '',
+                    code: '',
+                    source: 'catalog'
+                };
+            }
+            saveFavorites();
+            if (document.getElementById('viewFavs').classList.contains('active')) {
+                renderFavoritesUI();
+            }
+        };
+
+        // Stergere directa din tabul de favorite
+        window.removeFavByKey = function (key) {
+            if (FAVORITES[key]) {
+                delete FAVORITES[key];
+                saveFavorites();
+                renderFavoritesUI();
+            }
+        };
+
+        window.clearAllFavorites = function () {
+            if (confirm('Sigur dorești să elimini toate produsele din lista de favorite?')) {
+                FAVORITES = {};
+                saveFavorites();
+                renderFavoritesUI();
+            }
+        };
+
+        function renderFavoritesUI() {
+            const tbody = document.getElementById('favsTableBody');
+            const keys = Object.keys(FAVORITES);
+
+            if (keys.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 40px; color: var(--text-muted);">Nu ai adăugat încă niciun produs la favorite. Apasă pe 🤍 pe oricare rând sau card!</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = keys.map(k => {
+                const item = FAVORITES[k];
+                const url = buildEmagUrl(item.code, item.name);
+                const isNeg = (item.discount || '').includes('-');
+
+                return `
+          <tr>
+            <td style="text-align: center;">
+              <button type="button" class="btn-fav active" data-prod-key="${item.key}" onclick="removeFavByKey('${item.key}')" title="Elimină de la favorite">❤️</button>
+            </td>
+            <td><span class="nr-badge">${item.nr ? '#' + item.nr : '—'}</span></td>
+            <td>
+              <a href="${url}" target="_blank" rel="noopener noreferrer" class="link-deal">${escapeHtml(item.name)}</a>
+            </td>
+            <td style="text-align: right;">
+              <div class="price-bf">${item.price_bf ? item.price_bf + (String(item.price_bf).includes('lei') ? '' : ' lei') : '—'}</div>
+              ${item.price_emag ? `<div class="price-emag-old">${item.price_emag} lei live</div>` : ''}
+            </td>
+            <td style="text-align: center;">
+              ${item.discount ? `<span class="discount-pill ${isNeg ? 'negative' : ''}">${item.discount}</span>` : '—'}
+            </td>
+            <td style="text-align: center;">
+              <a href="${url}" target="_blank" rel="noopener noreferrer" class="open-btn" title="Deschide pe eMAG">↗</a>
+            </td>
+          </tr>
+        `;
+            }).join('');
+        }
+
+        // =========================================================================
+        // 1. RAPORT REDUCERI PDF (TOATE DATELE INTEGRALE DIN PDF)
         // =========================================================================
         let DEALS_RAW_DATA = null;
         let dealsDebounce = null;
@@ -885,7 +934,7 @@
             } catch (err) {
                 container.innerHTML = `
           <div style="text-align: center; padding: 30px; background: var(--bg-card); border-radius: 8px;">
-            <p style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 8px;">⚠️ Fișierul <code>deals_05_11.json</code> lipsește din rădăcina <code>D:\\bf\\</code>.</p>
+            <p style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 8px;">⚠️ Fișierul <code>deals_05_11.json</code> lipsește din rădăcină.</p>
             <p style="font-size: 0.85rem; color: var(--text-muted);">Adaugă fișierul generat în folderul proiectului și reîncarcă pagina.</p>
           </div>
         `;
@@ -905,7 +954,9 @@
             const sortBy = document.getElementById('dealsSortBy').value;
 
             container.innerHTML = PDF_SECTION_CONFIG.map(sec => {
-                let items = DEALS_RAW_DATA[sec.id] || [];
+                let items = (DEALS_RAW_DATA[sec.id] || []).map((item, originalIndex) => {
+                    return {...item, originalIndex: originalIndex};
+                });
 
                 items = items.filter(item => {
                     const normName = normalizeText(item.name);
@@ -960,24 +1011,13 @@
                     ${items.map(p => {
                     const url = buildEmagUrl(p.code, p.name);
                     const isNeg = (p.discount || '').includes('-');
-                    const prodKey = getProductKey(p.name);
+                    const prodKey = getCanonicalKey(p.name);
                     const isFav = !!FAVORITES[prodKey];
-
-                    const itemData = {
-                        nr: p.nr,
-                        name: p.name,
-                        price_bf: p.price_bf,
-                        price_emag: p.price_emag,
-                        discount: p.discount,
-                        code: p.code,
-                        source: 'pdf'
-                    };
-                    const payloadStr = escapeQuotes(JSON.stringify(itemData));
 
                     return `
                         <tr>
                           <td style="text-align: center;">
-                            <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleFavoriteByItem(${payloadStr})" title="Adaugă / Elimină din favorite">${isFav ? '❤️' : '🤍'}</button>
+                            <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="togglePdfFav('${sec.id}', ${p.originalIndex})" title="Adaugă / Elimină din favorite">${isFav ? '❤️' : '🤍'}</button>
                           </td>
                           <td class="rank-cell">#${p.nr}</td>
                           <td>
@@ -1183,24 +1223,14 @@
 
             tableBody.innerHTML = pagedItems.map(p => {
                 const emagUrl = getCatalogEmagSearchUrl(p.name);
-                const prodKey = getProductKey(p.name);
+                const prodKey = getCanonicalKey(p.name);
                 const isFav = !!FAVORITES[prodKey];
                 const priceStr = p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) : '';
-
-                const itemPayload = escapeQuotes(JSON.stringify({
-                    nr: p.nr,
-                    name: p.name,
-                    price_bf: priceStr,
-                    price_emag: '',
-                    discount: '',
-                    code: '',
-                    source: 'catalog'
-                }));
 
                 return `
           <tr class="clickable-row">
             <td style="text-align: center;">
-              <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleFavoriteByItem(${itemPayload})" title="Adaugă / Elimină">${isFav ? '❤️' : '🤍'}</button>
+              <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleCatalogFav(${p.nr})" title="Adaugă / Elimină">${isFav ? '❤️' : '🤍'}</button>
             </td>
             <td><span class="nr-badge">#${p.nr}</span></td>
             <td>
@@ -1218,19 +1248,9 @@
 
             gridContainer.innerHTML = pagedItems.map(p => {
                 const emagUrl = getCatalogEmagSearchUrl(p.name);
-                const prodKey = getProductKey(p.name);
+                const prodKey = getCanonicalKey(p.name);
                 const isFav = !!FAVORITES[prodKey];
                 const priceStr = p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) : '';
-
-                const itemPayload = escapeQuotes(JSON.stringify({
-                    nr: p.nr,
-                    name: p.name,
-                    price_bf: priceStr,
-                    price_emag: '',
-                    discount: '',
-                    code: '',
-                    source: 'catalog'
-                }));
 
                 return `
           <div class="prod-card">
@@ -1238,7 +1258,7 @@
               <div class="card-top">
                 <span class="nr-badge">#${p.nr}</span>
                 <div style="display:flex; align-items:center; gap:8px;">
-                  <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleFavoriteByItem(${itemPayload})" title="Adaugă / Elimină">${isFav ? '❤️' : '🤍'}</button>
+                  <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleCatalogFav(${p.nr})" title="Adaugă / Elimină">${isFav ? '❤️' : '🤍'}</button>
                   <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:var(--accent-blue); text-decoration:none; font-weight:600;">eMAG ↗</a>
                 </div>
               </div>

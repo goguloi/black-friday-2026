@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog Oferte Black Friday 2026</title>
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-input: #334155;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-gold: #f59e0b;
+            --accent-blue: #38bdf8;
+            --accent-hover: #0284c7;
+            --badge-bg: #475569;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .app-header h1 {
+            font-size: 1.6rem;
+            color: var(--accent-gold);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .status-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+            font-size: 0.85rem;
+        }
+
+        .stats-badge {
+            background: var(--bg-card);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .manual-upload-row {
+            margin-bottom: 15px;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: var(--badge-bg);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .controls-panel {
+            background: var(--bg-card);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-group label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .control-group select,
+        .price-fields input {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .price-fields {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-fields input {
+            width: 100%;
+        }
+
+        .btn-reset {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-reset:hover {
+            background: var(--border-color);
+            color: #fff;
+        }
+
+        .quick-tags {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .tag {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            background: var(--accent-blue);
+            color: #000;
+            font-weight: 600;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .view-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            cursor: pointer;
+        }
+
+        .view-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .view-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .view-btn.active {
+            background: var(--accent-blue);
+            color: #000;
+            font-weight: bold;
+        }
+
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .products-table th,
+        .products-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .products-table th {
+            background: #111e33;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .nr-badge {
+            background: var(--badge-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .prod-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            line-height: 1.4;
+            display: inline-block;
+            transition: color 0.15s ease;
+        }
+
+        .prod-link:hover {
+            color: var(--accent-blue);
+            text-decoration: underline;
+        }
+
+        .clickable-row:hover td {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .price-cell {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .price-val {
+            font-weight: bold;
+            font-size: 1.05rem;
+            color: var(--accent-gold);
+        }
+
+        .currency {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-left: 2px;
+        }
+
+        .noprice {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .btn-emag-external {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .btn-emag-external:hover {
+            background: var(--accent-blue);
+            color: #000;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 15px;
+        }
+
+        .prod-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+
+        .prod-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .card-link-badge {
+            font-size: 0.75rem;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card-link-badge:hover {
+            text-decoration: underline;
+        }
+
+        .card-title-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-title-link:hover {
+            color: var(--accent-blue);
+        }
+
+        .card-price {
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .highlight {
+            background-color: rgba(245, 158, 11, 0.35);
+            color: #fff;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .pagination-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-bar button {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .pagination-bar button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        #pageInfo {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <h1>Catalog Oferte Black Friday 2026</h1>
+                <p class="subtitle">Index rapid pentru produsele oficiale de Black Friday</p>
+            </div>
+            <div class="status-box">
+                <span id="loadStatus">⏳ Se inițializează catalogul...</span>
+                <div class="stats-badge">
+                    Total produse: <strong id="totalDisplay">0</strong>
+                </div>
+            </div>
+        </header>
+
+        <div class="manual-upload-row">
+            <label for="jsonFileInput" class="btn-secondary">Încarcă products.json manual</label>
+            <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+        </div>
+
+        <section class="controls-panel">
+            <div class="search-box">
+                <input type="text" id="searchInput"
+                    placeholder="Caută după denumire, model sau #număr (ex: samsung s26 ultra, espressor)..." disabled>
+            </div>
+
+            <div class="filters-grid">
+                <div class="control-group">
+                    <label for="categoryFilter">Categorie:</label>
+                    <select id="categoryFilter" disabled>
+                        <option value="ALL">Toate categoriile</option>
+                        <option value="Telefoane & Smartwatch">Telefoane & Smartwatch</option>
+                        <option value="IT, PC & Laptopuri">IT, PC & Laptopuri</option>
+                        <option value="Aspiratoare & Curățenie">Aspiratoare & Curățenie</option>
+                        <option value="Electrocasnice Bucătărie">Electrocasnice Bucătărie</option>
+                        <option value="Îngrijire Personală">Îngrijire Personală</option>
+                        <option value="Climatizare & Casă">Climatizare & Casă</option>
+                        <option value="Altele">Altele</option>
+                    </select>
+                </div>
+
+                <div class="control-group price-inputs">
+                    <label>Preț (lei):</label>
+                    <div class="price-fields">
+                        <input type="number" id="priceMin" placeholder="Min" min="0" disabled>
+                        <span>—</span>
+                        <input type="number" id="priceMax" placeholder="Max" min="0" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="sortBy">Sortare:</label>
+                    <select id="sortBy" disabled>
+                        <option value="price-asc">Preț: crescător</option>
+                        <option value="price-desc">Preț: descrescător</option>
+                        <option value="name-asc">Nume (A-Z)</option>
+                        <option value="nr-asc">Număr catalog (#1-34k)</option>
+                    </select>
+                </div>
+
+                <div class="control-group actions-group">
+                    <button type="button" class="btn-reset" onclick="resetFilters()">Resetează filtre</button>
+                </div>
+            </div>
+
+            <div class="quick-tags">
+                <span>Filtre rapide:</span>
+                <button type="button" class="tag" onclick="applyQuickFilter('samsung')">Samsung</button>
+                <button type="button" class="tag" onclick="applyQuickFilter('iphone')">Apple</button>
+                <button type="button" class="tag" onclick="applyQuickFilter('dyson')">Dyson</button>
+                <button type="button" class="tag" onclick="applyQuickFilter('espressor')">Espressoare</button>
+                <button type="button" class="tag" onclick="applyQuickFilter('airfryer')">Airfryer</button>
+                <button type="button" class="tag" onclick="setPriceFilter(0, 100)">Sub 100 lei</button>
+                <button type="button" class="tag" onclick="setPriceFilter(100, 500)">100 - 500 lei</button>
+                <button type="button" class="tag" onclick="setPriceFilter(500, 2000)">500 - 2000 lei</button>
+            </div>
+        </section>
+
+        <section class="results-header">
+            <div class="results-count">
+                Găsite: <strong id="countDisplay">0</strong> produse
+            </div>
+            <div class="view-toggles">
+                <button type="button" id="btnTableView" class="view-btn active"
+                    onclick="setView('table')">Tabel</button>
+                <button type="button" id="btnGridView" class="view-btn" onclick="setView('grid')">Carduri</button>
+            </div>
+        </section>
+
+        <main id="tableContainer" class="view-container">
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th style="width: 70px;">Nr.</th>
+                        <th>Denumire produs</th>
+                        <th style="width: 150px; text-align: right;">Preț BF</th>
+                        <th style="width: 70px; text-align: center;">eMAG</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr>
+                        <td colspan="4" class="empty-state">Se încarcă catalogul...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+        <main id="gridContainer" class="grid-container" style="display: none;"></main>
+
+        <nav class="pagination-bar">
+            <button type="button" id="firstBtn" onclick="goToPage(1)" disabled>« Prima</button>
+            <button type="button" id="prevBtn" onclick="prevPage()" disabled>‹ Înapoi</button>
+            <span id="pageInfo">Pagina 1 din 1</span>
+            <button type="button" id="nextBtn" onclick="nextPage()" disabled>Înainte ›</button>
+            <button type="button" id="lastBtn" onclick="goToLastPage()" disabled>Ultima »</button>
+        </nav>
+    </div>
+
+    <script>
+        let ALL_PRODUCTS = [];
+        let filteredItems = [];
+        let currentView = 'table';
+        let currentPage = 1;
+        const itemsPerPage = 30;
+        let debounceTimer = null;
+
+        function normalizeText(str) {
+            if (!str) return '';
+            return str
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function getEmagSearchUrl(name) {
+            if (!name) return 'https://www.emag.ro';
+            const cleanName = name
+                .replace(/[,\/#!$%\^&\*;:{}=\_`~()\"\'\+]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+            return `https://www.google.com/search?q=${encodeURIComponent('site:emag.ro/ ' + cleanName)}&btnI=1`;
+        }
+
+        function getProductCategory(name) {
+            if (!name) return 'Altele';
+            const n = normalizeText(name);
+
+            if (
+                n.includes('telefon') || n.includes('iphone') || n.includes('smartwatch') ||
+                n.includes('apple watch') || n.includes('bratara fitness') ||
+                n.includes('ochelari smart') || n.includes('tableta')
+            ) {
+                return 'Telefoane & Smartwatch';
+            }
+            if (
+                n.includes('laptop') || n.includes('desktop') || n.includes('pc gaming') ||
+                n.includes('monitor') || n.includes('tastatura') || n.includes('mouse') ||
+                n.includes('imprimanta') || n.includes('router') || n.includes('casti gaming') ||
+                n.includes('placa video') || n.includes('cooler') || n.includes('sursa')
+            ) {
+                return 'IT, PC & Laptopuri';
+            }
+            if (
+                n.includes('aspirator') || n.includes('robot de aspirare') ||
+                n.includes('mop') || n.includes('curatat cu abur') || n.includes('geamuri')
+            ) {
+                return 'Aspiratoare & Curățenie';
+            }
+            if (
+                n.includes('espressor') || n.includes('cafetiera') || n.includes('friteuza') ||
+                n.includes('blender') || n.includes('mixer') || n.includes('robot de bucatarie') ||
+                n.includes('sandwich') || n.includes('gratar') || n.includes('cuptor') ||
+                n.includes('plita') || n.includes('hota') || n.includes('frigider') ||
+                n.includes('combina frigorifica') || n.includes('side by side') ||
+                n.includes('masina de spalat vase') || n.includes('masina de spalat rufe') ||
+                n.includes('uscator de rufe') || n.includes('aragaz') || n.includes('multicooker')
+            ) {
+                return 'Electrocasnice Bucătărie';
+            }
+            if (
+                n.includes('epilator') || n.includes('periuta') || n.includes('irigator bucal') ||
+                n.includes('dus bucal') || n.includes('aparat de ras') || n.includes('aparat de tuns') ||
+                n.includes('ondulator') || n.includes('placa de indreptat') ||
+                n.includes('uscator de par') || n.includes('cantar de baie')
+            ) {
+                return 'Îngrijire Personală';
+            }
+            if (
+                n.includes('aer conditionat') || n.includes('dezumidificator') ||
+                n.includes('purificator') || n.includes('aeroterma') ||
+                n.includes('convector') || n.includes('calcat')
+            ) {
+                return 'Climatizare & Casă';
+            }
+
+            return 'Altele';
+        }
+
+        async function loadProductsData() {
+            const loadStatus = document.getElementById('loadStatus');
+            if (loadStatus) loadStatus.textContent = '⏳ Se încarcă catalogul...';
+
+            const urls = [
+                './products.json',
+                'https://raw.githubusercontent.com/goguloi/black-friday-2026/main/products.json'
+            ];
+
+            let data = null;
+            for (const url of urls) {
+                try {
+                    const response = await fetch(url, {headers: {'Accept': 'application/json'}});
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    data = await response.json();
+                    if (Array.isArray(data) && data.length > 0) break;
+                } catch (err) {
+                    console.warn(`Tentativă eșuată pentru ${url}:`, err);
+                }
+            }
+
+            if (data) {
+                initCatalog(data);
+            } else {
+                if (loadStatus) {
+                    loadStatus.innerHTML = '⚠️ Încărcarea a eșuat. Folosește butonul manual.';
+                }
+            }
+        }
+
+        const jsonFileInput = document.getElementById('jsonFileInput');
+        if (jsonFileInput) {
+            jsonFileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        initCatalog(data);
+                    } catch (err) {
+                        alert('Fișierul JSON nu este valid.');
+                    }
+                };
+                reader.readAsText(file);
+            });
+        }
+
+        function initCatalog(data) {
+            ALL_PRODUCTS = data;
+
+            const totalDisplay = document.getElementById('totalDisplay');
+            const loadStatus = document.getElementById('loadStatus');
+            const searchInput = document.getElementById('searchInput');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const priceMin = document.getElementById('priceMin');
+            const priceMax = document.getElementById('priceMax');
+            const sortBy = document.getElementById('sortBy');
+
+            if (totalDisplay) totalDisplay.textContent = ALL_PRODUCTS.length.toLocaleString('ro-RO');
+            if (loadStatus) {
+                loadStatus.innerHTML = `✅ <strong>${ALL_PRODUCTS.length.toLocaleString('ro-RO')}</strong> produse gata!`;
+            }
+
+            if (searchInput) searchInput.disabled = false;
+            if (categoryFilter) categoryFilter.disabled = false;
+            if (priceMin) priceMin.disabled = false;
+            if (priceMax) priceMax.disabled = false;
+            if (sortBy) sortBy.disabled = false;
+
+            filterAndSortData();
+        }
+
+        function filterAndSortData() {
+            const searchInput = document.getElementById('searchInput');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const priceMin = document.getElementById('priceMin');
+            const priceMax = document.getElementById('priceMax');
+            const sortBy = document.getElementById('sortBy');
+
+            const rawQuery = searchInput ? searchInput.value.trim() : '';
+            const normalizedQuery = normalizeText(rawQuery);
+            const searchTerms = normalizedQuery.split(/\s+/).filter(term => term.length > 0);
+
+            const selectedCat = categoryFilter ? categoryFilter.value : 'ALL';
+            const minP = priceMin ? parseFloat(priceMin.value) : NaN;
+            const maxP = priceMax ? parseFloat(priceMax.value) : NaN;
+            const sort = sortBy ? sortBy.value : 'price-asc';
+
+            filteredItems = ALL_PRODUCTS.filter(item => {
+                if (searchTerms.length === 1 && String(item.nr) === searchTerms[0].replace('#', '')) {
+                    return true;
+                }
+
+                const normalizedName = normalizeText(item.name);
+                const matchesAllTerms = searchTerms.every(term => normalizedName.includes(term));
+
+                let matchesCategory = true;
+                if (selectedCat && selectedCat !== 'ALL') {
+                    const itemCat = item.cat || getProductCategory(item.name);
+                    matchesCategory = (itemCat === selectedCat);
+                }
+
+                let matchesPrice = true;
+                if (!isNaN(minP)) {
+                    matchesPrice = matchesPrice && (item.price !== null && item.price >= minP);
+                }
+                if (!isNaN(maxP)) {
+                    matchesPrice = matchesPrice && (item.price !== null && item.price <= maxP);
+                }
+
+                return matchesAllTerms && matchesCategory && matchesPrice;
+            });
+
+            filteredItems.sort((a, b) => {
+                if (sort === 'price-asc') {
+                    if (a.price === null) return 1;
+                    if (b.price === null) return -1;
+                    return a.price - b.price;
+                }
+                if (sort === 'price-desc') {
+                    if (a.price === null) return 1;
+                    if (b.price === null) return -1;
+                    return b.price - a.price;
+                }
+                if (sort === 'name-asc') {
+                    return (a.name || '').localeCompare(b.name || '', 'ro');
+                }
+                if (sort === 'nr-asc') {
+                    return a.nr - b.nr;
+                }
+                return 0;
+            });
+
+            currentPage = 1;
+            render();
+        }
+
+        function render() {
+            const tableBody = document.getElementById('tableBody');
+            const gridContainer = document.getElementById('gridContainer');
+            const countDisplay = document.getElementById('countDisplay');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const firstBtn = document.getElementById('firstBtn');
+            const lastBtn = document.getElementById('lastBtn');
+            const pageInfo = document.getElementById('pageInfo');
+            const searchInput = document.getElementById('searchInput');
+
+            if (countDisplay) countDisplay.textContent = filteredItems.length.toLocaleString('ro-RO');
+
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const startIdx = (currentPage - 1) * itemsPerPage;
+            const pagedItems = filteredItems.slice(startIdx, startIdx + itemsPerPage);
+            const q = searchInput ? searchInput.value.trim() : '';
+
+            if (tableBody) {
+                if (pagedItems.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="4" class="empty-state">Niciun produs nu corespunde criteriilor de filtrare.</td></tr>';
+                } else {
+                    tableBody.innerHTML = pagedItems.map(p => {
+                        const emagUrl = getEmagSearchUrl(p.name);
+                        return `
+              <tr class="clickable-row">
+                <td class="nr-badge">#${p.nr}</td>
+                <td>
+                  <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" class="prod-link" title="Deschide direct pe eMAG">
+                    ${highlight(p.name, q)}
+                  </a>
+                </td>
+                <td class="price-cell">
+                  ${p.price !== null ? `
+                    <span class="price-val">${formatPrice(p.price)}</span>
+                    <span class="currency">lei</span>
+                  ` : `
+                    <span class="price-val noprice">— fără preț —</span>
+                  `}
+                </td>
+                <td style="text-align: center;">
+                  <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" class="btn-emag-external" title="Deschide direct produsul">
+                    ↗
+                  </a>
+                </td>
+              </tr>
+            `;
+                    }).join('');
+                }
+            }
+
+            if (gridContainer) {
+                if (pagedItems.length === 0) {
+                    gridContainer.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;">Niciun produs găsit.</div>';
+                } else {
+                    gridContainer.innerHTML = pagedItems.map(p => {
+                        const emagUrl = getEmagSearchUrl(p.name);
+                        return `
+              <div class="prod-card">
+                <div>
+                  <div class="card-top">
+                    <span class="nr-badge">#${p.nr}</span>
+                    <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" class="card-link-badge">
+                      eMAG ↗
+                    </a>
+                  </div>
+                  <div>
+                    <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" class="card-title-link" title="Deschide direct pe eMAG">
+                      ${highlight(p.name, q)}
+                    </a>
+                  </div>
+                </div>
+                <div class="card-price">
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Preț BF</span>
+                  <div>
+                    ${p.price !== null ? `
+                      <span class="price-val">${formatPrice(p.price)}</span>
+                      <span class="currency">lei</span>
+                    ` : `
+                      <span class="price-val noprice">— fără preț —</span>
+                    `}
+                  </div>
+                </div>
+              </div>
+            `;
+                    }).join('');
+                }
+            }
+
+            if (pageInfo) pageInfo.textContent = `Pagina ${currentPage.toLocaleString('ro-RO')} din ${totalPages.toLocaleString('ro-RO')}`;
+            if (prevBtn) prevBtn.disabled = currentPage <= 1;
+            if (firstBtn) firstBtn.disabled = currentPage <= 1;
+            if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+            if (lastBtn) lastBtn.disabled = currentPage >= totalPages;
+        }
+
+        function formatPrice(val) {
+            return val.toLocaleString('ro-RO', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        function highlight(text, query) {
+            if (!text) return '';
+            if (!query) return text;
+            const terms = query.trim().split(/\s+/).filter(t => t.length > 0);
+            if (terms.length === 0) return text;
+            const escapedTerms = terms.map(t => t.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+            const regex = new RegExp(`(${escapedTerms.join('|')})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        window.setView = function (view) {
+            currentView = view;
+            const tableContainer = document.getElementById('tableContainer');
+            const gridContainer = document.getElementById('gridContainer');
+            const btnTable = document.getElementById('btnTableView');
+            const btnGrid = document.getElementById('btnGridView');
+
+            if (view === 'table') {
+                if (tableContainer) tableContainer.style.display = 'block';
+                if (gridContainer) gridContainer.style.display = 'none';
+                if (btnTable) btnTable.classList.add('active');
+                if (btnGrid) btnGrid.classList.remove('active');
+            } else {
+                if (tableContainer) tableContainer.style.display = 'none';
+                if (gridContainer) gridContainer.style.display = 'grid';
+                if (btnGrid) btnGrid.classList.add('active');
+                if (btnTable) btnTable.classList.remove('active');
+            }
+        };
+
+        window.prevPage = function () {
+            if (currentPage > 1) {
+                currentPage--;
+                render();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        };
+
+        window.nextPage = function () {
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                render();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        };
+
+        window.goToPage = function (page) {
+            currentPage = page;
+            render();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+        window.goToLastPage = function () {
+            currentPage = Math.ceil(filteredItems.length / itemsPerPage) || 1;
+            render();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+        window.applyQuickFilter = function (keyword) {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.value = keyword;
+                filterAndSortData();
+            }
+        };
+
+        window.setPriceFilter = function (minVal, maxVal) {
+            const priceMin = document.getElementById('priceMin');
+            const priceMax = document.getElementById('priceMax');
+            if (priceMin) priceMin.value = minVal !== undefined && minVal > 0 ? minVal : '';
+            if (priceMax) priceMax.value = maxVal !== undefined ? maxVal : '';
+            filterAndSortData();
+        };
+
+        window.resetFilters = function () {
+            const searchInput = document.getElementById('searchInput');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const priceMin = document.getElementById('priceMin');
+            const priceMax = document.getElementById('priceMax');
+            const sortBy = document.getElementById('sortBy');
+
+            if (searchInput) searchInput.value = '';
+            if (categoryFilter) categoryFilter.value = 'ALL';
+            if (priceMin) priceMin.value = '';
+            if (priceMax) priceMax.value = '';
+            if (sortBy) sortBy.value = 'price-asc';
+            filterAndSortData();
+        };
+
+        const sInput = document.getElementById('searchInput');
+        const catSelect = document.getElementById('categoryFilter');
+        const pMinInput = document.getElementById('priceMin');
+        const pMaxInput = document.getElementById('priceMax');
+        const sBySelect = document.getElementById('sortBy');
+
+        if (sInput) {
+            sInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(filterAndSortData, 200);
+            });
+        }
+
+        if (catSelect) catSelect.addEventListener('change', filterAndSortData);
+
+        if (pMinInput) {
+            pMinInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(filterAndSortData, 200);
+            });
+        }
+
+        if (pMaxInput) {
+            pMaxInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(filterAndSortData, 200);
+            });
+        }
+
+        if (sBySelect) sBySelect.addEventListener('change', filterAndSortData);
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadProductsData);
+        } else {
+            loadProductsData();
+        }
+    </script>
+</body>
+
+</html>

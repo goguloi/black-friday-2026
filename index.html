@@ -724,14 +724,15 @@
             return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
 
-        // FAVORITE CU CURĂȚARE AUTOMATĂ LA ÎNCĂRCARE
+        // =========================================================================
+        // FAVORITE
+        // =========================================================================
         let FAVORITES = JSON.parse(localStorage.getItem('bf_favs_2026') || '{}');
 
         function cleanInvalidFavorites() {
             let modified = false;
             for (const k in FAVORITES) {
                 const item = FAVORITES[k];
-                // Elimină elementele fără număr/cod valid sau fără nume
                 if (!item || !item.name || item.name.trim() === '' || (!item.nr && !item.code && !item.key)) {
                     delete FAVORITES[k];
                     modified = true;
@@ -856,14 +857,16 @@
               ${item.discount ? `<span class="discount-pill ${isNeg ? 'negative' : ''}">${item.discount}</span>` : '—'}
             </td>
             <td style="text-align: center;">
-              <a href="${url}" target="_blank" rel="noopener noreferrer" class="open-btn">↗</a>
+              <a href="${url}" target="_blank" rel="noopener noreferrer" class="open-btn" title="Deschide pe eMAG">↗</a>
             </td>
           </tr>
         `;
             }).join('');
         }
 
-        // PDF DEALS
+        // =========================================================================
+        // 1. RAPORT REDUCERI PDF
+        // =========================================================================
         let DEALS_RAW_DATA = null;
         let dealsDebounce = null;
 
@@ -1011,7 +1014,9 @@
         document.getElementById('dealsPriceMax').addEventListener('input', () => {clearTimeout(dealsDebounce); dealsDebounce = setTimeout(renderFilteredDeals, 200);});
         document.getElementById('dealsSortBy').addEventListener('change', renderFilteredDeals);
 
-        // SWITCH TABS
+        // =========================================================================
+        // 2. COMUTARE TABURI
+        // =========================================================================
         window.switchMode = function (mode) {
             document.getElementById('viewDeals').classList.toggle('active', mode === 'deals');
             document.getElementById('viewCatalog').classList.toggle('active', mode === 'catalog');
@@ -1031,13 +1036,33 @@
             }
         };
 
-        // CATALOG 34K
+        // =========================================================================
+        // 3. CATALOG COMPLET (34K)
+        // =========================================================================
         let ALL_PRODUCTS = [];
         let filteredItems = [];
         let currentView = 'table';
         let currentPage = 1;
         const itemsPerPage = 30;
         let catalogDebounce = null;
+
+        function getCatalogEmagSearchUrl(name) {
+            if (!name) return 'https://www.emag.ro';
+            const clean = name.replace(/[,\/#!$%\^&\*;:{}=\_`~()\"\'\+]/g, ' ').replace(/\s+/g, ' ').trim();
+            return `https://www.google.com/search?q=${encodeURIComponent('site:emag.ro/ ' + clean)}&btnI=1`;
+        }
+
+        function getProductCategory(name) {
+            if (!name) return 'Altele';
+            const n = normalizeText(name);
+            if (n.includes('telefon') || n.includes('iphone') || n.includes('smartwatch') || n.includes('apple watch') || n.includes('bratara fitness') || n.includes('tableta')) return 'Telefoane & Smartwatch';
+            if (n.includes('laptop') || n.includes('desktop') || n.includes('pc gaming') || n.includes('monitor') || n.includes('tastatura') || n.includes('mouse') || n.includes('imprimanta') || n.includes('router') || n.includes('placa video')) return 'IT, PC & Laptopuri';
+            if (n.includes('aspirator') || n.includes('robot de aspirare') || n.includes('mop') || n.includes('curatat cu abur') || n.includes('geamuri')) return 'Aspiratoare & Curățenie';
+            if (n.includes('espressor') || n.includes('cafetiera') || n.includes('friteuza') || n.includes('blender') || n.includes('mixer') || n.includes('robot de bucatarie') || n.includes('cuptor') || n.includes('plita') || n.includes('hota') || n.includes('frigider') || n.includes('masina de spalat')) return 'Electrocasnice Bucătărie';
+            if (n.includes('epilator') || n.includes('periuta') || n.includes('irigator bucal') || n.includes('aparat de ras') || n.includes('aparat de tuns') || n.includes('ondulator') || n.includes('uscator de par')) return 'Îngrijire Personală';
+            if (n.includes('aer conditionat') || n.includes('dezumidificator') || n.includes('purificator') || n.includes('convector') || n.includes('calcat')) return 'Climatizare & Casă';
+            return 'Altele';
+        }
 
         async function loadCatalogData() {
             const tbody = document.getElementById('catalogTableBody');

@@ -591,9 +591,9 @@
                     <div class="control-group">
                         <label for="sortBy">Sortare:</label>
                         <select id="sortBy">
+                            <option value="name-asc">Nume (A-Z)</option>
                             <option value="price-asc">Preț: crescător</option>
                             <option value="price-desc">Preț: descrescător</option>
-                            <option value="name-asc">Nume (A-Z)</option>
                             <option value="nr-asc">Număr catalog (#1-34k)</option>
                         </select>
                     </div>
@@ -1097,9 +1097,16 @@
             });
 
             filteredItems.sort((a, b) => {
+                if (sort === 'name-asc') {
+                    const nameA = a.name ? a.name.trim() : '';
+                    const nameB = b.name ? b.name.trim() : '';
+                    if (!nameA && !nameB) return 0;
+                    if (!nameA) return 1; // Mute elementele fără nume la sfârșit
+                    if (!nameB) return -1;
+                    return nameA.localeCompare(nameB, 'ro');
+                }
                 if (sort === 'price-asc') return (a.price ?? Infinity) - (b.price ?? Infinity);
                 if (sort === 'price-desc') return (b.price ?? -Infinity) - (a.price ?? -Infinity);
-                if (sort === 'name-asc') return (a.name || '').localeCompare(b.name || '', 'ro');
                 if (sort === 'nr-asc') return a.nr - b.nr;
                 return 0;
             });
@@ -1195,7 +1202,7 @@
             document.getElementById('categoryFilter').value = 'ALL';
             document.getElementById('priceMin').value = '';
             document.getElementById('priceMax').value = '';
-            document.getElementById('sortBy').value = 'price-asc';
+            document.getElementById('sortBy').value = 'name-asc';
             filterAndSortCatalog();
         };
 

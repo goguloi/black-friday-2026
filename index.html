@@ -39,7 +39,6 @@
             margin: 0 auto;
         }
 
-        /* Navigare Moduri */
         .app-nav {
             display: flex;
             justify-content: space-between;
@@ -100,7 +99,6 @@
             display: block;
         }
 
-        /* Buton Favorite */
         .btn-fav {
             background: transparent;
             border: none;
@@ -109,10 +107,6 @@
             transition: transform 0.15s ease;
             padding: 2px 4px;
             outline: none;
-            user-select: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .btn-fav:hover {
@@ -123,7 +117,6 @@
             filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.7));
         }
 
-        /* Panou Filtrare */
         .controls-panel {
             background: var(--bg-card);
             padding: 16px;
@@ -228,7 +221,6 @@
             font-weight: 600;
         }
 
-        /* Acordeon Sectiuni PDF */
         .section-accordion {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -283,7 +275,6 @@
             display: block;
         }
 
-        /* Tabele */
         .deals-table,
         .products-table {
             width: 100%;
@@ -306,7 +297,6 @@
             color: var(--text-muted);
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .deals-table tr:hover td,
@@ -393,7 +383,6 @@
             text-decoration: none;
             font-weight: bold;
             border: 1px solid var(--border-color);
-            transition: all 0.2s;
         }
 
         .open-btn:hover,
@@ -441,7 +430,6 @@
             font-weight: bold;
         }
 
-        /* Grid Carduri */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -457,7 +445,6 @@
             flex-direction: column;
             justify-content: space-between;
             gap: 12px;
-            position: relative;
         }
 
         .card-top {
@@ -520,7 +507,6 @@
 
 <body>
     <div class="app-container">
-
         <header class="app-nav">
             <div class="title-group">
                 <h1>Black Friday 2026: Catalog & Reduceri</h1>
@@ -536,9 +522,7 @@
             </div>
         </header>
 
-        <!-- ========================================== -->
         <!-- MOD 1: RAPORT REDUCERI PDF -->
-        <!-- ========================================== -->
         <section id="viewDeals" class="view-mode-section active">
             <div class="controls-panel">
                 <div class="search-box">
@@ -569,24 +553,19 @@
                     </div>
                 </div>
             </div>
-
             <div id="dealsContainer">
-                <div style="text-align: center; padding: 40px; color: var(--text-muted);">
-                    ⏳ Se încarcă analiza completă a ofertelor din PDF...
-                </div>
+                <div style="text-align: center; padding: 40px; color: var(--text-muted);">⏳ Se încarcă analiza completă
+                    a ofertelor din PDF...</div>
             </div>
         </section>
 
-        <!-- ========================================== -->
-        <!-- MOD 2: CATALOG COMPLET IDENTIC (34K) -->
-        <!-- ========================================== -->
+        <!-- MOD 2: CATALOG COMPLET (34K) -->
         <section id="viewCatalog" class="view-mode-section">
             <div class="controls-panel">
                 <div class="search-box">
                     <input type="text" id="searchInput"
                         placeholder="Caută după denumire, model sau #număr (ex: samsung s26 ultra, espressor)...">
                 </div>
-
                 <div class="filters-grid">
                     <div class="control-group">
                         <label for="categoryFilter">Categorie:</label>
@@ -601,8 +580,7 @@
                             <option value="Altele">Altele</option>
                         </select>
                     </div>
-
-                    <div class="control-group price-inputs">
+                    <div class="control-group">
                         <label>Preț (lei):</label>
                         <div class="price-fields">
                             <input type="number" id="priceMin" placeholder="Min" min="0">
@@ -610,7 +588,6 @@
                             <input type="number" id="priceMax" placeholder="Max" min="0">
                         </div>
                     </div>
-
                     <div class="control-group">
                         <label for="sortBy">Sortare:</label>
                         <select id="sortBy">
@@ -620,13 +597,11 @@
                             <option value="nr-asc">Număr catalog (#1-34k)</option>
                         </select>
                     </div>
-
                     <div class="control-group">
                         <button type="button" class="btn-reset" onclick="resetCatalogFilters()">Resetează
                             filtre</button>
                     </div>
                 </div>
-
                 <div class="quick-tags">
                     <span>Filtre rapide:</span>
                     <button type="button" class="tag" onclick="applyCatalogQuickFilter('samsung')">Samsung</button>
@@ -640,7 +615,6 @@
                     <button type="button" class="tag" onclick="setCatalogPriceFilter(500, 2000)">500 - 2000 lei</button>
                 </div>
             </div>
-
             <div class="results-header">
                 <div>Găsite: <strong id="countDisplay">0</strong> produse</div>
                 <div class="view-toggles">
@@ -649,7 +623,6 @@
                     <button type="button" id="btnGridView" class="view-btn" onclick="setView('grid')">Carduri</button>
                 </div>
             </div>
-
             <main id="tableContainer">
                 <table class="products-table">
                     <thead>
@@ -668,9 +641,7 @@
                     </tbody>
                 </table>
             </main>
-
             <main id="gridContainer" class="grid-container" style="display: none;"></main>
-
             <nav class="pagination-bar">
                 <button type="button" id="firstBtn" onclick="goToCatalogPage(1)" disabled>« Prima</button>
                 <button type="button" id="prevBtn" onclick="prevCatalogPage()" disabled>‹ Înapoi</button>
@@ -680,16 +651,13 @@
             </nav>
         </section>
 
-        <!-- ========================================== -->
         <!-- MOD 3: FAVORITE -->
-        <!-- ========================================== -->
         <section id="viewFavs" class="view-mode-section">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
                 <h2>Produse Favorite Salvate (<span id="favListCount">0</span>)</h2>
                 <button type="button" class="btn-reset" onclick="clearAllFavorites()">🗑️ Elimină toate
                     favoritele</button>
             </div>
-
             <div class="section-accordion open">
                 <div class="accordion-content" style="display:block;">
                     <table class="deals-table">
@@ -708,19 +676,14 @@
                 </div>
             </div>
         </section>
-
     </div>
 
     <script>
-        // =========================================================================
-        // UTILITARE GLOBALE & IDENTIFICARE CANONICA UNICA
-        // =========================================================================
         function normalizeText(str) {
             if (!str) return '';
             return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
 
-        // Cheie unică comună generată din primele 35 de caractere alfanumerice ale numelui (elimină diferențele de punctuație și "…")
         function getCanonicalKey(name) {
             if (!name) return '';
             const clean = normalizeText(name).replace(/…|\.\.\./g, '').replace(/[^a-z0-9]/g, '');
@@ -761,18 +724,33 @@
             return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
 
-        // =========================================================================
-        // MANAGEMENT PERSISTENT FAVORITE (LOCALSTORAGE)
-        // =========================================================================
+        // FAVORITE CU CURĂȚARE AUTOMATĂ LA ÎNCĂRCARE
         let FAVORITES = JSON.parse(localStorage.getItem('bf_favs_2026') || '{}');
 
+        function cleanInvalidFavorites() {
+            let modified = false;
+            for (const k in FAVORITES) {
+                const item = FAVORITES[k];
+                // Elimină elementele fără număr/cod valid sau fără nume
+                if (!item || !item.name || item.name.trim() === '' || (!item.nr && !item.code && !item.key)) {
+                    delete FAVORITES[k];
+                    modified = true;
+                }
+            }
+            if (modified) {
+                localStorage.setItem('bf_favs_2026', JSON.stringify(FAVORITES));
+            }
+        }
+
         function saveFavorites() {
+            cleanInvalidFavorites();
             localStorage.setItem('bf_favs_2026', JSON.stringify(FAVORITES));
             updateFavBadge();
             refreshAllFavIcons();
         }
 
         function updateFavBadge() {
+            cleanInvalidFavorites();
             const count = Object.keys(FAVORITES).length;
             document.getElementById('favCount').textContent = count;
             const fListEl = document.getElementById('favListCount');
@@ -792,11 +770,10 @@
             });
         }
 
-        // Toggle din Raportul PDF pe baza de sectiune si index curat
         window.togglePdfFav = function (secId, idx) {
             if (!DEALS_RAW_DATA || !DEALS_RAW_DATA[secId]) return;
             const item = DEALS_RAW_DATA[secId][idx];
-            if (!item) return;
+            if (!item || !item.name) return;
 
             const key = getCanonicalKey(item.name);
             if (!key) return;
@@ -805,26 +782,18 @@
                 delete FAVORITES[key];
             } else {
                 FAVORITES[key] = {
-                    key: key,
-                    nr: item.nr || '',
-                    name: item.name,
-                    price_bf: item.price_bf || '',
-                    price_emag: item.price_emag || '',
-                    discount: item.discount || '',
-                    code: item.code || '',
-                    source: 'pdf'
+                    key: key, nr: item.nr || '', name: item.name,
+                    price_bf: item.price_bf || '', price_emag: item.price_emag || '',
+                    discount: item.discount || '', code: item.code || '', source: 'pdf'
                 };
             }
             saveFavorites();
-            if (document.getElementById('viewFavs').classList.contains('active')) {
-                renderFavoritesUI();
-            }
+            if (document.getElementById('viewFavs').classList.contains('active')) renderFavoritesUI();
         };
 
-        // Toggle din Catalogul Complet pe baza de numar produs (nr)
         window.toggleCatalogFav = function (nr) {
             const p = ALL_PRODUCTS.find(x => x.nr === nr);
-            if (!p) return;
+            if (!p || !p.name) return;
 
             const key = getCanonicalKey(p.name);
             if (!key) return;
@@ -834,23 +803,14 @@
             } else {
                 const priceStr = p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) : '';
                 FAVORITES[key] = {
-                    key: key,
-                    nr: p.nr,
-                    name: p.name,
-                    price_bf: priceStr,
-                    price_emag: '',
-                    discount: '',
-                    code: '',
-                    source: 'catalog'
+                    key: key, nr: p.nr, name: p.name,
+                    price_bf: priceStr, price_emag: '', discount: '', code: '', source: 'catalog'
                 };
             }
             saveFavorites();
-            if (document.getElementById('viewFavs').classList.contains('active')) {
-                renderFavoritesUI();
-            }
+            if (document.getElementById('viewFavs').classList.contains('active')) renderFavoritesUI();
         };
 
-        // Stergere directa din tabul de favorite
         window.removeFavByKey = function (key) {
             if (FAVORITES[key]) {
                 delete FAVORITES[key];
@@ -860,7 +820,7 @@
         };
 
         window.clearAllFavorites = function () {
-            if (confirm('Sigur dorești să elimini toate produsele din lista de favorite?')) {
+            if (confirm('Sigur dorești să elimini toate produsele din favorite?')) {
                 FAVORITES = {};
                 saveFavorites();
                 renderFavoritesUI();
@@ -868,11 +828,12 @@
         };
 
         function renderFavoritesUI() {
+            cleanInvalidFavorites();
             const tbody = document.getElementById('favsTableBody');
             const keys = Object.keys(FAVORITES);
 
             if (keys.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 40px; color: var(--text-muted);">Nu ai adăugat încă niciun produs la favorite. Apasă pe 🤍 pe oricare rând sau card!</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 40px; color: var(--text-muted);">Nu ai adăugat încă niciun produs la favorite.</td></tr>';
                 return;
             }
 
@@ -880,16 +841,13 @@
                 const item = FAVORITES[k];
                 const url = buildEmagUrl(item.code, item.name);
                 const isNeg = (item.discount || '').includes('-');
-
                 return `
           <tr>
             <td style="text-align: center;">
-              <button type="button" class="btn-fav active" data-prod-key="${item.key}" onclick="removeFavByKey('${item.key}')" title="Elimină de la favorite">❤️</button>
+              <button type="button" class="btn-fav active" data-prod-key="${item.key}" onclick="removeFavByKey('${item.key}')" title="Elimină">❤️</button>
             </td>
             <td><span class="nr-badge">${item.nr ? '#' + item.nr : '—'}</span></td>
-            <td>
-              <a href="${url}" target="_blank" rel="noopener noreferrer" class="link-deal">${escapeHtml(item.name)}</a>
-            </td>
+            <td><a href="${url}" target="_blank" rel="noopener noreferrer" class="link-deal">${escapeHtml(item.name)}</a></td>
             <td style="text-align: right;">
               <div class="price-bf">${item.price_bf ? item.price_bf + (String(item.price_bf).includes('lei') ? '' : ' lei') : '—'}</div>
               ${item.price_emag ? `<div class="price-emag-old">${item.price_emag} lei live</div>` : ''}
@@ -898,16 +856,14 @@
               ${item.discount ? `<span class="discount-pill ${isNeg ? 'negative' : ''}">${item.discount}</span>` : '—'}
             </td>
             <td style="text-align: center;">
-              <a href="${url}" target="_blank" rel="noopener noreferrer" class="open-btn" title="Deschide pe eMAG">↗</a>
+              <a href="${url}" target="_blank" rel="noopener noreferrer" class="open-btn">↗</a>
             </td>
           </tr>
         `;
             }).join('');
         }
 
-        // =========================================================================
-        // 1. RAPORT REDUCERI PDF (TOATE DATELE INTEGRALE DIN PDF)
-        // =========================================================================
+        // PDF DEALS
         let DEALS_RAW_DATA = null;
         let dealsDebounce = null;
 
@@ -961,12 +917,10 @@
                 items = items.filter(item => {
                     const normName = normalizeText(item.name);
                     const matchesQuery = searchTerms.every(term => normName.includes(term));
-
                     const numPrice = parseNumericPrice(item.price_bf);
                     let matchesPrice = true;
                     if (!isNaN(minP)) matchesPrice = matchesPrice && (numPrice !== null && numPrice >= minP);
                     if (!isNaN(maxP)) matchesPrice = matchesPrice && (numPrice !== null && numPrice <= maxP);
-
                     return matchesQuery && matchesPrice;
                 });
 
@@ -992,9 +946,7 @@
             </div>
             <div class="accordion-content">
               ${items.length === 0 ? `
-                <div style="padding: 16px; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
-                  Niciun produs nu corespunde filtrelor în această categorie.
-                </div>
+                <div style="padding: 16px; text-align: center; color: var(--text-muted); font-size: 0.85rem;">Niciun produs găsit.</div>
               ` : `
                 <table class="deals-table">
                   <thead>
@@ -1017,25 +969,19 @@
                     return `
                         <tr>
                           <td style="text-align: center;">
-                            <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="togglePdfFav('${sec.id}', ${p.originalIndex})" title="Adaugă / Elimină din favorite">${isFav ? '❤️' : '🤍'}</button>
+                            <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="togglePdfFav('${sec.id}', ${p.originalIndex})" title="Favorite">${isFav ? '❤️' : '🤍'}</button>
                           </td>
                           <td class="rank-cell">#${p.nr}</td>
                           <td>
-                            <a href="${url}" target="_blank" rel="noopener noreferrer" class="link-deal">
-                              ${highlightText(p.name, rawQ)}
-                            </a>
+                            <a href="${url}" target="_blank" rel="noopener noreferrer" class="link-deal">${highlightText(p.name, rawQ)}</a>
                             ${p.note ? `<span class="note-badge">${escapeHtml(p.note)}</span>` : ''}
                           </td>
                           <td>
                             <div class="price-bf">${p.price_bf ? p.price_bf + ' lei' : '—'}</div>
                             ${p.price_emag ? `<div class="price-emag-old">${p.price_emag} lei live</div>` : ''}
                           </td>
-                          <td style="text-align: center;">
-                            <span class="discount-pill ${isNeg ? 'negative' : ''}">${p.discount || '—'}</span>
-                          </td>
-                          <td style="text-align: center;">
-                            <a href="${url}" target="_blank" rel="noopener noreferrer" class="open-btn" title="Deschide pe eMAG">↗</a>
-                          </td>
+                          <td style="text-align: center;"><span class="discount-pill ${isNeg ? 'negative' : ''}">${p.discount || '—'}</span></td>
+                          <td style="text-align: center;"><a href="${url}" target="_blank" rel="noopener noreferrer" class="open-btn">↗</a></td>
                         </tr>
                       `;
                 }).join('')}
@@ -1049,8 +995,7 @@
         }
 
         window.toggleAccordion = function (id) {
-            const el = document.getElementById(id);
-            if (el) el.classList.toggle('open');
+            document.getElementById(id).classList.toggle('open');
         };
 
         window.resetDealsFilters = function () {
@@ -1061,23 +1006,12 @@
             renderFilteredDeals();
         };
 
-        document.getElementById('dealsSearchInput').addEventListener('input', () => {
-            clearTimeout(dealsDebounce);
-            dealsDebounce = setTimeout(renderFilteredDeals, 200);
-        });
-        document.getElementById('dealsPriceMin').addEventListener('input', () => {
-            clearTimeout(dealsDebounce);
-            dealsDebounce = setTimeout(renderFilteredDeals, 200);
-        });
-        document.getElementById('dealsPriceMax').addEventListener('input', () => {
-            clearTimeout(dealsDebounce);
-            dealsDebounce = setTimeout(renderFilteredDeals, 200);
-        });
+        document.getElementById('dealsSearchInput').addEventListener('input', () => {clearTimeout(dealsDebounce); dealsDebounce = setTimeout(renderFilteredDeals, 200);});
+        document.getElementById('dealsPriceMin').addEventListener('input', () => {clearTimeout(dealsDebounce); dealsDebounce = setTimeout(renderFilteredDeals, 200);});
+        document.getElementById('dealsPriceMax').addEventListener('input', () => {clearTimeout(dealsDebounce); dealsDebounce = setTimeout(renderFilteredDeals, 200);});
         document.getElementById('dealsSortBy').addEventListener('change', renderFilteredDeals);
 
-        // =========================================================================
-        // 2. COMUTARE TABURI
-        // =========================================================================
+        // SWITCH TABS
         window.switchMode = function (mode) {
             document.getElementById('viewDeals').classList.toggle('active', mode === 'deals');
             document.getElementById('viewCatalog').classList.toggle('active', mode === 'catalog');
@@ -1088,21 +1022,16 @@
             document.getElementById('btnModeFavs').classList.toggle('active', mode === 'favs');
 
             if (mode === 'catalog') {
-                if (ALL_PRODUCTS.length === 0) {
-                    loadCatalogData();
-                } else {
-                    refreshAllFavIcons();
-                }
+                if (ALL_PRODUCTS.length === 0) loadCatalogData();
+                else refreshAllFavIcons();
             } else if (mode === 'deals') {
-                refreshAllFavIcons();
+                renderFilteredDeals();
             } else if (mode === 'favs') {
                 renderFavoritesUI();
             }
         };
 
-        // =========================================================================
-        // 3. CATALOG COMPLET (34K)
-        // =========================================================================
+        // CATALOG 34K
         let ALL_PRODUCTS = [];
         let filteredItems = [];
         let currentView = 'table';
@@ -1110,48 +1039,15 @@
         const itemsPerPage = 30;
         let catalogDebounce = null;
 
-        function getCatalogEmagSearchUrl(name) {
-            if (!name) return 'https://www.emag.ro';
-            const clean = name.replace(/[,\/#!$%\^&\*;:{}=\_`~()\"\'\+]/g, ' ').replace(/\s+/g, ' ').trim();
-            return `https://www.google.com/search?q=${encodeURIComponent('site:emag.ro/ ' + clean)}&btnI=1`;
-        }
-
-        function getProductCategory(name) {
-            if (!name) return 'Altele';
-            const n = normalizeText(name);
-            if (n.includes('telefon') || n.includes('iphone') || n.includes('smartwatch') || n.includes('apple watch') || n.includes('bratara fitness') || n.includes('tableta')) return 'Telefoane & Smartwatch';
-            if (n.includes('laptop') || n.includes('desktop') || n.includes('pc gaming') || n.includes('monitor') || n.includes('tastatura') || n.includes('mouse') || n.includes('imprimanta') || n.includes('router') || n.includes('placa video')) return 'IT, PC & Laptopuri';
-            if (n.includes('aspirator') || n.includes('robot de aspirare') || n.includes('mop') || n.includes('curatat cu abur') || n.includes('geamuri')) return 'Aspiratoare & Curățenie';
-            if (n.includes('espressor') || n.includes('cafetiera') || n.includes('friteuza') || n.includes('blender') || n.includes('mixer') || n.includes('robot de bucatarie') || n.includes('cuptor') || n.includes('plita') || n.includes('hota') || n.includes('frigider') || n.includes('masina de spalat')) return 'Electrocasnice Bucătărie';
-            if (n.includes('epilator') || n.includes('periuta') || n.includes('irigator bucal') || n.includes('aparat de ras') || n.includes('aparat de tuns') || n.includes('ondulator') || n.includes('uscator de par')) return 'Îngrijire Personală';
-            if (n.includes('aer conditionat') || n.includes('dezumidificator') || n.includes('purificator') || n.includes('convector') || n.includes('calcat')) return 'Climatizare & Casă';
-            return 'Altele';
-        }
-
         async function loadCatalogData() {
             const tbody = document.getElementById('catalogTableBody');
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">⏳ Se încarcă catalogul complet (34k)...</td></tr>';
-
-            const urls = ['./products.json', 'https://raw.githubusercontent.com/goguloi/black-friday-2026/main/products.json'];
-
-            let data = null;
-            for (const url of urls) {
-                try {
-                    const res = await fetch(url);
-                    if (res.ok) {
-                        data = await res.json();
-                        if (Array.isArray(data) && data.length > 0) break;
-                    }
-                } catch (e) {
-                    console.warn('Eroare fetch la', url);
-                }
-            }
-
-            if (data) {
-                ALL_PRODUCTS = data;
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">⏳ Se încarcă catalogul...</td></tr>';
+            try {
+                const res = await fetch('./products.json');
+                ALL_PRODUCTS = await res.json();
                 filterAndSortCatalog();
-            } else {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px; color: var(--accent-gold);">Nu s-a putut citi fișierul products.json.</td></tr>';
+            } catch (e) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px; color: var(--accent-gold);">Eroare citire products.json</td></tr>';
             }
         }
 
@@ -1159,7 +1055,6 @@
             const rawQuery = (document.getElementById('searchInput').value || '').trim();
             const normalizedQuery = normalizeText(rawQuery);
             const searchTerms = normalizedQuery.split(/\s+/).filter(t => t.length > 0);
-
             const selectedCat = document.getElementById('categoryFilter').value;
             const minP = parseFloat(document.getElementById('priceMin').value);
             const maxP = parseFloat(document.getElementById('priceMax').value);
@@ -1167,21 +1062,13 @@
 
             filteredItems = ALL_PRODUCTS.filter(item => {
                 if (searchTerms.length === 1 && String(item.nr) === searchTerms[0].replace('#', '')) return true;
-
-                const normalizedName = normalizeText(item.name);
-                const matchesAllTerms = searchTerms.every(term => normalizedName.includes(term));
-
-                let matchesCategory = true;
-                if (selectedCat && selectedCat !== 'ALL') {
-                    const itemCat = item.cat || getProductCategory(item.name);
-                    matchesCategory = (itemCat === selectedCat);
-                }
-
-                let matchesPrice = true;
-                if (!isNaN(minP)) matchesPrice = matchesPrice && (item.price !== null && item.price >= minP);
-                if (!isNaN(maxP)) matchesPrice = matchesPrice && (item.price !== null && item.price <= maxP);
-
-                return matchesAllTerms && matchesCategory && matchesPrice;
+                const normName = normalizeText(item.name);
+                const matchesAll = searchTerms.every(t => normName.includes(t));
+                let matchesCat = (selectedCat === 'ALL') || (getProductCategory(item.name) === selectedCat);
+                let matchesP = true;
+                if (!isNaN(minP)) matchesP = matchesP && (item.price !== null && item.price >= minP);
+                if (!isNaN(maxP)) matchesP = matchesP && (item.price !== null && item.price <= maxP);
+                return matchesAll && matchesCat && matchesP;
             });
 
             filteredItems.sort((a, b) => {
@@ -1201,135 +1088,84 @@
             const gridContainer = document.getElementById('gridContainer');
             const countDisplay = document.getElementById('countDisplay');
             const pageInfo = document.getElementById('pageInfo');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const firstBtn = document.getElementById('firstBtn');
-            const lastBtn = document.getElementById('lastBtn');
             const q = document.getElementById('searchInput').value.trim();
 
             countDisplay.textContent = filteredItems.length.toLocaleString('ro-RO');
-
             const totalPages = Math.ceil(filteredItems.length / itemsPerPage) || 1;
             if (currentPage > totalPages) currentPage = totalPages;
 
-            const startIdx = (currentPage - 1) * itemsPerPage;
-            const pagedItems = filteredItems.slice(startIdx, startIdx + itemsPerPage);
+            const paged = filteredItems.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
-            if (pagedItems.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">Niciun produs nu corespunde filtrelor.</td></tr>';
+            if (paged.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">Niciun produs găsit.</td></tr>';
                 gridContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px;">Niciun produs găsit.</div>';
                 return;
             }
 
-            tableBody.innerHTML = pagedItems.map(p => {
-                const emagUrl = getCatalogEmagSearchUrl(p.name);
+            tableBody.innerHTML = paged.map(p => {
+                const url = buildEmagUrl('', p.name);
                 const prodKey = getCanonicalKey(p.name);
                 const isFav = !!FAVORITES[prodKey];
-                const priceStr = p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) : '';
+                const pStr = p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) : '';
 
                 return `
           <tr class="clickable-row">
             <td style="text-align: center;">
-              <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleCatalogFav(${p.nr})" title="Adaugă / Elimină">${isFav ? '❤️' : '🤍'}</button>
+              <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleCatalogFav(${p.nr})" title="Favorite">${isFav ? '❤️' : '🤍'}</button>
             </td>
             <td><span class="nr-badge">#${p.nr}</span></td>
-            <td>
-              <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" class="prod-link">${highlightText(p.name, q)}</a>
-            </td>
-            <td style="text-align: right;" class="price-val">
-              ${p.price !== null ? priceStr + ' <span class="currency">lei</span>' : '—'}
-            </td>
-            <td style="text-align: center;">
-              <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" class="btn-emag-external" title="Deschide pe eMAG">↗</a>
-            </td>
+            <td><a href="${url}" target="_blank" rel="noopener noreferrer" class="prod-link">${highlightText(p.name, q)}</a></td>
+            <td style="text-align: right;" class="price-val">${p.price !== null ? pStr + ' <span class="currency">lei</span>' : '—'}</td>
+            <td style="text-align: center;"><a href="${url}" target="_blank" rel="noopener noreferrer" class="btn-emag-external">↗</a></td>
           </tr>
         `;
             }).join('');
 
-            gridContainer.innerHTML = pagedItems.map(p => {
-                const emagUrl = getCatalogEmagSearchUrl(p.name);
+            gridContainer.innerHTML = paged.map(p => {
+                const url = buildEmagUrl('', p.name);
                 const prodKey = getCanonicalKey(p.name);
                 const isFav = !!FAVORITES[prodKey];
-                const priceStr = p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) : '';
+                const pStr = p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) : '';
 
                 return `
           <div class="prod-card">
             <div>
               <div class="card-top">
                 <span class="nr-badge">#${p.nr}</span>
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleCatalogFav(${p.nr})" title="Adaugă / Elimină">${isFav ? '❤️' : '🤍'}</button>
-                  <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:var(--accent-blue); text-decoration:none; font-weight:600;">eMAG ↗</a>
-                </div>
+                <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleCatalogFav(${p.nr})">${isFav ? '❤️' : '🤍'}</button>
               </div>
-              <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" class="card-title-link">${highlightText(p.name, q)}</a>
+              <a href="${url}" target="_blank" rel="noopener noreferrer" class="card-title-link">${highlightText(p.name, q)}</a>
             </div>
             <div class="card-price">
-              <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Preț BF</span>
-              <div class="price-val">
-                ${p.price !== null ? priceStr + ' <span class="currency">lei</span>' : '—'}
-              </div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">PREȚ BF</span>
+              <div class="price-val">${p.price !== null ? pStr + ' <span class="currency">lei</span>' : '—'}</div>
             </div>
           </div>
         `;
             }).join('');
 
-            pageInfo.textContent = `Pagina ${currentPage.toLocaleString('ro-RO')} din ${totalPages.toLocaleString('ro-RO')}`;
-            prevBtn.disabled = currentPage <= 1;
-            firstBtn.disabled = currentPage <= 1;
-            nextBtn.disabled = currentPage >= totalPages;
-            lastBtn.disabled = currentPage >= totalPages;
+            pageInfo.textContent = `Pagina ${currentPage} din ${totalPages}`;
+            document.getElementById('prevBtn').disabled = currentPage <= 1;
+            document.getElementById('firstBtn').disabled = currentPage <= 1;
+            document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+            document.getElementById('lastBtn').disabled = currentPage >= totalPages;
         }
 
         window.setView = function (view) {
-            currentView = view;
             document.getElementById('tableContainer').style.display = view === 'table' ? 'block' : 'none';
             document.getElementById('gridContainer').style.display = view === 'grid' ? 'grid' : 'none';
             document.getElementById('btnTableView').classList.toggle('active', view === 'table');
             document.getElementById('btnGridView').classList.toggle('active', view === 'grid');
         };
 
-        window.prevCatalogPage = function () {
-            if (currentPage > 1) {
-                currentPage--;
-                renderCatalogUI();
-                window.scrollTo({top: 0, behavior: 'smooth'});
-            }
-        };
+        window.prevCatalogPage = () => {if (currentPage > 1) {currentPage--; renderCatalogUI(); window.scrollTo({top: 0, behavior: 'smooth'});} };
+        window.nextCatalogPage = () => {if (currentPage < Math.ceil(filteredItems.length / itemsPerPage)) {currentPage++; renderCatalogUI(); window.scrollTo({top: 0, behavior: 'smooth'});} };
+        window.goToCatalogPage = (p) => {currentPage = p; renderCatalogUI(); window.scrollTo({top: 0, behavior: 'smooth'});};
+        window.goToCatalogLastPage = () => {currentPage = Math.ceil(filteredItems.length / itemsPerPage) || 1; renderCatalogUI(); window.scrollTo({top: 0, behavior: 'smooth'});};
 
-        window.nextCatalogPage = function () {
-            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderCatalogUI();
-                window.scrollTo({top: 0, behavior: 'smooth'});
-            }
-        };
-
-        window.goToCatalogPage = function (page) {
-            currentPage = page;
-            renderCatalogUI();
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        };
-
-        window.goToCatalogLastPage = function () {
-            currentPage = Math.ceil(filteredItems.length / itemsPerPage) || 1;
-            renderCatalogUI();
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        };
-
-        window.applyCatalogQuickFilter = function (keyword) {
-            document.getElementById('searchInput').value = keyword;
-            filterAndSortCatalog();
-        };
-
-        window.setCatalogPriceFilter = function (minVal, maxVal) {
-            document.getElementById('priceMin').value = minVal !== undefined && minVal > 0 ? minVal : '';
-            document.getElementById('priceMax').value = maxVal !== undefined ? maxVal : '';
-            filterAndSortCatalog();
-        };
-
-        window.resetCatalogFilters = function () {
+        window.applyCatalogQuickFilter = (k) => {document.getElementById('searchInput').value = k; filterAndSortCatalog();};
+        window.setCatalogPriceFilter = (min, max) => {document.getElementById('priceMin').value = min > 0 ? min : ''; document.getElementById('priceMax').value = max; filterAndSortCatalog();};
+        window.resetCatalogFilters = () => {
             document.getElementById('searchInput').value = '';
             document.getElementById('categoryFilter').value = 'ALL';
             document.getElementById('priceMin').value = '';
@@ -1338,23 +1174,14 @@
             filterAndSortCatalog();
         };
 
-        document.getElementById('searchInput').addEventListener('input', () => {
-            clearTimeout(catalogDebounce);
-            catalogDebounce = setTimeout(filterAndSortCatalog, 200);
-        });
+        document.getElementById('searchInput').addEventListener('input', () => {clearTimeout(catalogDebounce); catalogDebounce = setTimeout(filterAndSortCatalog, 200);});
         document.getElementById('categoryFilter').addEventListener('change', filterAndSortCatalog);
-        document.getElementById('priceMin').addEventListener('input', () => {
-            clearTimeout(catalogDebounce);
-            catalogDebounce = setTimeout(filterAndSortCatalog, 200);
-        });
-        document.getElementById('priceMax').addEventListener('input', () => {
-            clearTimeout(catalogDebounce);
-            catalogDebounce = setTimeout(filterAndSortCatalog, 200);
-        });
+        document.getElementById('priceMin').addEventListener('input', () => {clearTimeout(catalogDebounce); catalogDebounce = setTimeout(filterAndSortCatalog, 200);});
+        document.getElementById('priceMax').addEventListener('input', () => {clearTimeout(catalogDebounce); catalogDebounce = setTimeout(filterAndSortCatalog, 200);});
         document.getElementById('sortBy').addEventListener('change', filterAndSortCatalog);
 
-        // Initializare
         document.addEventListener('DOMContentLoaded', () => {
+            cleanInvalidFavorites();
             updateFavBadge();
             loadDealsData();
         });

@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Friday 2026: Catalog & Reduceri eMAG</title>
+    <style>
+        :root {
+            --bg-main: #0b1120;
+            --bg-card: #151f32;
+            --bg-input: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-gold: #f59e0b;
+            --accent-blue: #38bdf8;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --badge-bg: #475569;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .app-container {
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        /* Navigare Moduri */
+        .app-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .title-group h1 {
+            font-size: 1.6rem;
+            color: var(--accent-gold);
+        }
+
+        .title-group p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .mode-switch {
+            display: flex;
+            background: var(--bg-card);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            gap: 4px;
+        }
+
+        .mode-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .mode-btn.active {
+            background: var(--accent-blue);
+            color: #0b1120;
+        }
+
+        .view-mode-section {
+            display: none;
+        }
+
+        .view-mode-section.active {
+            display: block;
+        }
+
+        /* Panou Filtrare */
+        .controls-panel {
+            background: var(--bg-card);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-group label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .control-group select,
+        .price-fields input {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .price-fields {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-fields input {
+            width: 100%;
+        }
+
+        .btn-reset {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-reset:hover {
+            background: var(--border-color);
+            color: #fff;
+        }
+
+        .quick-tags {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .tag {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            background: var(--accent-blue);
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* Acordeon Sectiuni PDF */
+        .section-accordion {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 14px 18px;
+            background: #19243a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .accordion-header h2 {
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .badge-count {
+            background: var(--bg-input);
+            color: var(--accent-blue);
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .arrow-icon {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: transform 0.25s ease;
+        }
+
+        .section-accordion.open .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            display: none;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-accordion.open .accordion-content {
+            display: block;
+        }
+
+        /* Tabele */
+        .deals-table,
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+
+        .deals-table th,
+        .deals-table td,
+        .products-table th,
+        .products-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .deals-table th,
+        .products-table th {
+            background: #111a2c;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .deals-table tr:hover td,
+        .clickable-row:hover td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .rank-cell,
+        .nr-badge {
+            font-weight: bold;
+            color: var(--text-muted);
+            width: 45px;
+        }
+
+        .nr-badge {
+            background: var(--badge-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #fff;
+        }
+
+        .link-deal,
+        .prod-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .link-deal:hover,
+        .prod-link:hover {
+            color: var(--accent-blue);
+            text-decoration: underline;
+        }
+
+        .price-bf,
+        .price-val {
+            color: var(--accent-gold);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .price-emag-old {
+            color: var(--text-muted);
+            text-decoration: line-through;
+            font-size: 0.78rem;
+            margin-top: 2px;
+        }
+
+        .currency {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-left: 2px;
+        }
+
+        .discount-pill {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.82rem;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            white-space: nowrap;
+        }
+
+        .discount-pill.negative {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .open-btn,
+        .btn-emag-external {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: var(--bg-input);
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .open-btn:hover,
+        .btn-emag-external:hover {
+            background: var(--accent-blue);
+            color: #000;
+        }
+
+        .note-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 1px 5px;
+            background: #334155;
+            color: #cbd5e1;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .view-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            cursor: pointer;
+        }
+
+        .view-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .view-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .view-btn.active {
+            background: var(--accent-blue);
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* Grid Carduri */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 15px;
+        }
+
+        .prod-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .card-title-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .card-title-link:hover {
+            color: var(--accent-blue);
+        }
+
+        .card-price {
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .highlight {
+            background-color: rgba(245, 158, 11, 0.35);
+            color: #fff;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .pagination-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-bar button {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .pagination-bar button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+
+        <header class="app-nav">
+            <div class="title-group">
+                <h1>Black Friday 2026: Catalog & Reduceri</h1>
+                <p>Preț promoțional vs preț eMAG din analiza 05.11.2026</p>
+            </div>
+            <div class="mode-switch">
+                <button type="button" class="mode-btn active" onclick="switchMode('deals')">🔥 Raport Reduceri
+                    PDF</button>
+                <button type="button" class="mode-btn" onclick="switchMode('catalog')">📦 Catalog Complet (34k)</button>
+            </div>
+        </header>
+
+        <!-- ========================================== -->
+        <!-- MOD 1: RAPORT REDUCERI PDF (CU FILTRARE PE COLAPSABILE) -->
+        <!-- ========================================== -->
+        <section id="viewDeals" class="view-mode-section active">
+
+            <!-- Filtrare in sectiunile PDF -->
+            <div class="controls-panel">
+                <div class="search-box">
+                    <input type="text" id="dealsSearchInput"
+                        placeholder="Filtrează în toate secțiunile din PDF (ex: samsung, whisky, miele, philips)...">
+                </div>
+                <div class="filters-grid">
+                    <div class="control-group">
+                        <label>Preț BF (lei):</label>
+                        <div class="price-fields">
+                            <input type="number" id="dealsPriceMin" placeholder="Min" min="0">
+                            <span>—</span>
+                            <input type="number" id="dealsPriceMax" placeholder="Max" min="0">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>Sortare în fiecare secțiune:</label>
+                        <select id="dealsSortBy">
+                            <option value="discount-desc">Reducere: descrescător (cea mai mare)</option>
+                            <option value="price-asc">Preț BF: crescător</option>
+                            <option value="price-desc">Preț BF: descrescător</option>
+                            <option value="name-asc">Nume (A-Z)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <button type="button" class="btn-reset" onclick="resetDealsFilters()">Resetează filtre
+                            PDF</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dealsContainer">
+                <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    ⏳ Se încarcă analiza completă a ofertelor din PDF...
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- MOD 2: CATALOG COMPLET IDENTIC (34K) -->
+        <!-- ========================================== -->
+        <section id="viewCatalog" class="view-mode-section">
+            <div class="controls-panel">
+                <div class="search-box">
+                    <input type="text" id="searchInput"
+                        placeholder="Caută după denumire, model sau #număr (ex: samsung s26 ultra, espressor)...">
+                </div>
+
+                <div class="filters-grid">
+                    <div class="control-group">
+                        <label for="categoryFilter">Categorie:</label>
+                        <select id="categoryFilter">
+                            <option value="ALL">Toate categoriile</option>
+                            <option value="Telefoane & Smartwatch">Telefoane & Smartwatch</option>
+                            <option value="IT, PC & Laptopuri">IT, PC & Laptopuri</option>
+                            <option value="Aspiratoare & Curățenie">Aspiratoare & Curățenie</option>
+                            <option value="Electrocasnice Bucătărie">Electrocasnice Bucătărie</option>
+                            <option value="Îngrijire Personală">Îngrijire Personală</option>
+                            <option value="Climatizare & Casă">Climatizare & Casă</option>
+                            <option value="Altele">Altele</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group price-inputs">
+                        <label>Preț (lei):</label>
+                        <div class="price-fields">
+                            <input type="number" id="priceMin" placeholder="Min" min="0">
+                            <span>—</span>
+                            <input type="number" id="priceMax" placeholder="Max" min="0">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="sortBy">Sortare:</label>
+                        <select id="sortBy">
+                            <option value="price-asc">Preț: crescător</option>
+                            <option value="price-desc">Preț: descrescător</option>
+                            <option value="name-asc">Nume (A-Z)</option>
+                            <option value="nr-asc">Număr catalog (#1-34k)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <button type="button" class="btn-reset" onclick="resetCatalogFilters()">Resetează
+                            filtre</button>
+                    </div>
+                </div>
+
+                <div class="quick-tags">
+                    <span>Filtre rapide:</span>
+                    <button type="button" class="tag" onclick="applyCatalogQuickFilter('samsung')">Samsung</button>
+                    <button type="button" class="tag" onclick="applyCatalogQuickFilter('iphone')">Apple</button>
+                    <button type="button" class="tag" onclick="applyCatalogQuickFilter('dyson')">Dyson</button>
+                    <button type="button" class="tag"
+                        onclick="applyCatalogQuickFilter('espressor')">Espressoare</button>
+                    <button type="button" class="tag" onclick="applyCatalogQuickFilter('airfryer')">Airfryer</button>
+                    <button type="button" class="tag" onclick="setCatalogPriceFilter(0, 100)">Sub 100 lei</button>
+                    <button type="button" class="tag" onclick="setCatalogPriceFilter(100, 500)">100 - 500 lei</button>
+                    <button type="button" class="tag" onclick="setCatalogPriceFilter(500, 2000)">500 - 2000 lei</button>
+                </div>
+            </div>
+
+            <div class="results-header">
+                <div>Găsite: <strong id="countDisplay">0</strong> produse</div>
+                <div class="view-toggles">
+                    <button type="button" id="btnTableView" class="view-btn active"
+                        onclick="setView('table')">Tabel</button>
+                    <button type="button" id="btnGridView" class="view-btn" onclick="setView('grid')">Carduri</button>
+                </div>
+            </div>
+
+            <main id="tableContainer">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 70px;">Nr.</th>
+                            <th>Denumire produs</th>
+                            <th style="width: 150px; text-align: right;">Preț BF</th>
+                            <th style="width: 70px; text-align: center;">eMAG</th>
+                        </tr>
+                    </thead>
+                    <tbody id="catalogTableBody">
+                        <tr>
+                            <td colspan="4" style="text-align:center; padding: 20px;">Se încarcă catalogul...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
+
+            <main id="gridContainer" class="grid-container" style="display: none;"></main>
+
+            <nav class="pagination-bar">
+                <button type="button" id="firstBtn" onclick="goToCatalogPage(1)" disabled>« Prima</button>
+                <button type="button" id="prevBtn" onclick="prevCatalogPage()" disabled>‹ Înapoi</button>
+                <span id="pageInfo" style="color:var(--text-muted); font-size:0.85rem;">Pagina 1 din 1</span>
+                <button type="button" id="nextBtn" onclick="nextCatalogPage()" disabled>Înainte ›</button>
+                <button type="button" id="lastBtn" onclick="goToCatalogLastPage()" disabled>Ultima »</button>
+            </nav>
+        </section>
+
+    </div>
+
+    <script>
+        // =========================================================================
+        // UTILITARE GLOBALE
+        // =========================================================================
+        function normalizeText(str) {
+            if (!str) return '';
+            return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function buildEmagUrl(code, name) {
+            const q = (code && code.trim().length > 3) ? code.trim() : (name || '').trim();
+            const clean = q.replace(/[,\/#!$%\^&\*;:{}=\_`~()\"\'\+]/g, ' ').replace(/\s+/g, ' ').trim();
+            return `https://www.google.com/search?q=${encodeURIComponent('site:emag.ro/ ' + clean)}&btnI=1`;
+        }
+
+        function parseNumericPrice(str) {
+            if (!str) return null;
+            const clean = str.replace(/\./g, '').replace(',', '.').replace(/[^0-9.]/g, '');
+            const val = parseFloat(clean);
+            return isNaN(val) ? null : val;
+        }
+
+        function parseNumericDiscount(str) {
+            if (!str) return -9999;
+            const clean = str.replace('%', '').trim();
+            const val = parseFloat(clean);
+            return isNaN(val) ? -9999 : val;
+        }
+
+        function highlightText(text, query) {
+            if (!text || !query) return text || '';
+            const terms = query.trim().split(/\s+/).filter(t => t.length > 0);
+            if (terms.length === 0) return text;
+            const escaped = terms.map(t => t.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+            const regex = new RegExp(`(${escaped.join('|')})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        // =========================================================================
+        // 1. LOGICA RAPORT REDUCERI PDF (CU FILTRARE SIMULTANA PE SECTIUNI)
+        // =========================================================================
+        let DEALS_RAW_DATA = null;
+        let dealsDebounce = null;
+
+        const PDF_SECTION_CONFIG = [
+            {id: 'top40', title: '⭐ Top 40 Reduceri (Toate Categoriile)', defaultOpen: true},
+            {id: 'tv', title: '📺 TV-uri (279 oferte)', defaultOpen: false},
+            {id: 'telefoane', title: '📱 Telefoane (174 oferte)', defaultOpen: false},
+            {id: 'tablete', title: '📱 Tablete (55 oferte)', defaultOpen: false},
+            {id: 'electrocasnice', title: '🍳 Electrocasnice (1.058 oferte)', defaultOpen: false},
+            {id: 'whisky', title: '🥃 Whisky (112 oferte)', defaultOpen: false},
+            {id: 'rom', title: '🍹 Rom (44 oferte)', defaultOpen: false},
+            {id: 'gin', title: '🍸 Gin (33 oferte)', defaultOpen: false},
+            {id: 'amaretto', title: '🍾 Amaretto (1 ofertă)', defaultOpen: false}
+        ];
+
+        async function loadDealsData() {
+            const container = document.getElementById('dealsContainer');
+            try {
+                const res = await fetch('./deals_05_11.json');
+                if (!res.ok) throw new Error('Nu s-a gasit deals_05_11.json');
+                const json = await res.json();
+                DEALS_RAW_DATA = json.sections;
+                renderFilteredDeals();
+            } catch (err) {
+                container.innerHTML = `
+          <div style="text-align: center; padding: 30px; background: var(--bg-card); border-radius: 8px;">
+            <p style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 8px;">⚠️ Fișierul <code>deals_05_11.json</code> lipsește din rădăcina <code>D:\\bf\\</code>.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Descarcă fișierul generat sau rulează <code>python extract.py</code> în folder, apoi reîncarcă pagina.</p>
+          </div>
+        `;
+            }
+        }
+
+        function renderFilteredDeals() {
+            const container = document.getElementById('dealsContainer');
+            if (!DEALS_RAW_DATA) return;
+
+            const rawQ = (document.getElementById('dealsSearchInput').value || '').trim();
+            const normQ = normalizeText(rawQ);
+            const searchTerms = normQ.split(/\s+/).filter(t => t.length > 0);
+
+            const minP = parseFloat(document.getElementById('dealsPriceMin').value);
+            const maxP = parseFloat(document.getElementById('dealsPriceMax').value);
+            const sortBy = document.getElementById('dealsSortBy').value;
+
+            container.innerHTML = PDF_SECTION_CONFIG.map(sec => {
+                let items = DEALS_RAW_DATA[sec.id] || [];
+
+                // Filtrare pe fiecare sectiune
+                items = items.filter(item => {
+                    const normName = normalizeText(item.name);
+                    const matchesQuery = searchTerms.every(term => normName.includes(term));
+
+                    const numPrice = parseNumericPrice(item.price_bf);
+                    let matchesPrice = true;
+                    if (!isNaN(minP)) matchesPrice = matchesPrice && (numPrice !== null && numPrice >= minP);
+                    if (!isNaN(maxP)) matchesPrice = matchesPrice && (numPrice !== null && numPrice <= maxP);
+
+                    return matchesQuery && matchesPrice;
+                });
+
+                // Sortare in cadrul sectiunii
+                items.sort((a, b) => {
+                    if (sortBy === 'discount-desc') {
+                        return parseNumericDiscount(b.discount) - parseNumericDiscount(a.discount);
+                    }
+                    if (sortBy === 'price-asc') {
+                        return (parseNumericPrice(a.price_bf) ?? Infinity) - (parseNumericPrice(b.price_bf) ?? Infinity);
+                    }
+                    if (sortBy === 'price-desc') {
+                        return (parseNumericPrice(b.price_bf) ?? -Infinity) - (parseNumericPrice(a.price_bf) ?? -Infinity);
+                    }
+                    if (sortBy === 'name-asc') {
+                        return (a.name || '').localeCompare(b.name || '', 'ro');
+                    }
+                    return 0;
+                });
+
+                // Daca utilizatorul a filtrat si exista rezultate, deschidem automat sectiunea
+                const isSearching = searchTerms.length > 0 || !isNaN(minP) || !isNaN(maxP);
+                const isOpen = isSearching ? (items.length > 0) : sec.defaultOpen;
+
+                return `
+          <div class="section-accordion ${isOpen ? 'open' : ''}" id="acc_${sec.id}">
+            <div class="accordion-header" onclick="toggleAccordion('acc_${sec.id}')">
+              <h2>
+                ${sec.title}
+                <span class="badge-count">${items.length} produse</span>
+              </h2>
+              <span class="arrow-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              ${items.length === 0 ? `
+                <div style="padding: 16px; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
+                  Niciun produs nu corespunde filtrelor în această categorie.
+                </div>
+              ` : `
+                <table class="deals-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 45px;">#</th>
+                      <th>Produs</th>
+                      <th style="width: 140px;">Preț BF</th>
+                      <th style="width: 100px; text-align: center;">Reducere</th>
+                      <th style="width: 50px; text-align: center;">eMAG</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${items.map(p => {
+                    const url = buildEmagUrl(p.code, p.name);
+                    const isNeg = (p.discount || '').includes('-');
+                    return `
+                        <tr>
+                          <td class="rank-cell">#${p.nr}</td>
+                          <td>
+                            <a href="${url}" target="_blank" rel="noopener noreferrer" class="link-deal">
+                              ${highlightText(p.name, rawQ)}
+                            </a>
+                            ${p.note ? `<span class="note-badge">${p.note}</span>` : ''}
+                          </td>
+                          <td>
+                            <div class="price-bf">${p.price_bf ? p.price_bf + ' lei' : '—'}</div>
+                            ${p.price_emag ? `<div class="price-emag-old">${p.price_emag} lei live</div>` : ''}
+                          </td>
+                          <td style="text-align: center;">
+                            <span class="discount-pill ${isNeg ? 'negative' : ''}">${p.discount || '—'}</span>
+                          </td>
+                          <td style="text-align: center;">
+                            <a href="${url}" target="_blank" rel="noopener noreferrer" class="open-btn" title="Deschide pe eMAG">↗</a>
+                          </td>
+                        </tr>
+                      `;
+                }).join('')}
+                  </tbody>
+                </table>
+              `}
+            </div>
+          </div>
+        `;
+            }).join('');
+        }
+
+        window.toggleAccordion = function (id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('open');
+        };
+
+        window.resetDealsFilters = function () {
+            document.getElementById('dealsSearchInput').value = '';
+            document.getElementById('dealsPriceMin').value = '';
+            document.getElementById('dealsPriceMax').value = '';
+            document.getElementById('dealsSortBy').value = 'discount-desc';
+            renderFilteredDeals();
+        };
+
+        // Evenimente filtrare PDF
+        document.getElementById('dealsSearchInput').addEventListener('input', () => {
+            clearTimeout(dealsDebounce);
+            dealsDebounce = setTimeout(renderFilteredDeals, 200);
+        });
+        document.getElementById('dealsPriceMin').addEventListener('input', () => {
+            clearTimeout(dealsDebounce);
+            dealsDebounce = setTimeout(renderFilteredDeals, 200);
+        });
+        document.getElementById('dealsPriceMax').addEventListener('input', () => {
+            clearTimeout(dealsDebounce);
+            dealsDebounce = setTimeout(renderFilteredDeals, 200);
+        });
+        document.getElementById('dealsSortBy').addEventListener('change', renderFilteredDeals);
+
+
+        // =========================================================================
+        // 2. COMUTARE INTRE CELE DOUA MODURI
+        // =========================================================================
+        window.switchMode = function (mode) {
+            document.getElementById('viewDeals').classList.toggle('active', mode === 'deals');
+            document.getElementById('viewCatalog').classList.toggle('active', mode === 'catalog');
+            const btns = document.querySelectorAll('.mode-btn');
+            btns[0].classList.toggle('active', mode === 'deals');
+            btns[1].classList.toggle('active', mode === 'catalog');
+
+            if (mode === 'catalog' && ALL_PRODUCTS.length === 0) {
+                loadCatalogData();
+            }
+        };
+
+
+        // =========================================================================
+        // 3. CATALOGUL COMPLET (34K DIN PRODUCTS.JSON)
+        // =========================================================================
+        let ALL_PRODUCTS = [];
+        let filteredItems = [];
+        let currentView = 'table';
+        let currentPage = 1;
+        const itemsPerPage = 30;
+        let catalogDebounce = null;
+
+        function getCatalogEmagSearchUrl(name) {
+            if (!name) return 'https://www.emag.ro';
+            const clean = name.replace(/[,\/#!$%\^&\*;:{}=\_`~()\"\'\+]/g, ' ').replace(/\s+/g, ' ').trim();
+            return `https://www.google.com/search?q=${encodeURIComponent('site:emag.ro/ ' + clean)}&btnI=1`;
+        }
+
+        function getProductCategory(name) {
+            if (!name) return 'Altele';
+            const n = normalizeText(name);
+            if (n.includes('telefon') || n.includes('iphone') || n.includes('smartwatch') || n.includes('apple watch') || n.includes('bratara fitness') || n.includes('tableta')) return 'Telefoane & Smartwatch';
+            if (n.includes('laptop') || n.includes('desktop') || n.includes('pc gaming') || n.includes('monitor') || n.includes('tastatura') || n.includes('mouse') || n.includes('imprimanta') || n.includes('router') || n.includes('placa video')) return 'IT, PC & Laptopuri';
+            if (n.includes('aspirator') || n.includes('robot de aspirare') || n.includes('mop') || n.includes('curatat cu abur') || n.includes('geamuri')) return 'Aspiratoare & Curățenie';
+            if (n.includes('espressor') || n.includes('cafetiera') || n.includes('friteuza') || n.includes('blender') || n.includes('mixer') || n.includes('robot de bucatarie') || n.includes('cuptor') || n.includes('plita') || n.includes('hota') || n.includes('frigider') || n.includes('masina de spalat')) return 'Electrocasnice Bucătărie';
+            if (n.includes('epilator') || n.includes('periuta') || n.includes('irigator bucal') || n.includes('aparat de ras') || n.includes('aparat de tuns') || n.includes('ondulator') || n.includes('uscator de par')) return 'Îngrijire Personală';
+            if (n.includes('aer conditionat') || n.includes('dezumidificator') || n.includes('purificator') || n.includes('convector') || n.includes('calcat')) return 'Climatizare & Casă';
+            return 'Altele';
+        }
+
+        async function loadCatalogData() {
+            const tbody = document.getElementById('catalogTableBody');
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">⏳ Se încarcă catalogul complet (34k)...</td></tr>';
+
+            const urls = [
+                './products.json',
+                'https://raw.githubusercontent.com/goguloi/black-friday-2026/main/products.json'
+            ];
+
+            let data = null;
+            for (const url of urls) {
+                try {
+                    const res = await fetch(url);
+                    if (res.ok) {
+                        data = await res.json();
+                        if (Array.isArray(data) && data.length > 0) break;
+                    }
+                } catch (e) {
+                    console.warn('Eroare fetch la', url);
+                }
+            }
+
+            if (data) {
+                ALL_PRODUCTS = data;
+                filterAndSortCatalog();
+            } else {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px; color: var(--accent-gold);">Nu s-a putut citi fișierul products.json.</td></tr>';
+            }
+        }
+
+        function filterAndSortCatalog() {
+            const rawQuery = (document.getElementById('searchInput').value || '').trim();
+            const normalizedQuery = normalizeText(rawQuery);
+            const searchTerms = normalizedQuery.split(/\s+/).filter(t => t.length > 0);
+
+            const selectedCat = document.getElementById('categoryFilter').value;
+            const minP = parseFloat(document.getElementById('priceMin').value);
+            const maxP = parseFloat(document.getElementById('priceMax').value);
+            const sort = document.getElementById('sortBy').value;
+
+            filteredItems = ALL_PRODUCTS.filter(item => {
+                if (searchTerms.length === 1 && String(item.nr) === searchTerms[0].replace('#', '')) return true;
+
+                const normalizedName = normalizeText(item.name);
+                const matchesAllTerms = searchTerms.every(term => normalizedName.includes(term));
+
+                let matchesCategory = true;
+                if (selectedCat && selectedCat !== 'ALL') {
+                    const itemCat = item.cat || getProductCategory(item.name);
+                    matchesCategory = (itemCat === selectedCat);
+                }
+
+                let matchesPrice = true;
+                if (!isNaN(minP)) matchesPrice = matchesPrice && (item.price !== null && item.price >= minP);
+                if (!isNaN(maxP)) matchesPrice = matchesPrice && (item.price !== null && item.price <= maxP);
+
+                return matchesAllTerms && matchesCategory && matchesPrice;
+            });
+
+            filteredItems.sort((a, b) => {
+                if (sort === 'price-asc') return (a.price ?? Infinity) - (b.price ?? Infinity);
+                if (sort === 'price-desc') return (b.price ?? -Infinity) - (a.price ?? -Infinity);
+                if (sort === 'name-asc') return (a.name || '').localeCompare(b.name || '', 'ro');
+                if (sort === 'nr-asc') return a.nr - b.nr;
+                return 0;
+            });
+
+            currentPage = 1;
+            renderCatalogUI();
+        }
+
+        function renderCatalogUI() {
+            const tableBody = document.getElementById('catalogTableBody');
+            const gridContainer = document.getElementById('gridContainer');
+            const countDisplay = document.getElementById('countDisplay');
+            const pageInfo = document.getElementById('pageInfo');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const firstBtn = document.getElementById('firstBtn');
+            const lastBtn = document.getElementById('lastBtn');
+            const q = document.getElementById('searchInput').value.trim();
+
+            countDisplay.textContent = filteredItems.length.toLocaleString('ro-RO');
+
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const startIdx = (currentPage - 1) * itemsPerPage;
+            const pagedItems = filteredItems.slice(startIdx, startIdx + itemsPerPage);
+
+            if (pagedItems.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Niciun produs nu corespunde filtrelor.</td></tr>';
+                gridContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px;">Niciun produs găsit.</div>';
+                return;
+            }
+
+            tableBody.innerHTML = pagedItems.map(p => {
+                const emagUrl = getCatalogEmagSearchUrl(p.name);
+                return `
+          <tr class="clickable-row">
+            <td><span class="nr-badge">#${p.nr}</span></td>
+            <td>
+              <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" class="prod-link">${highlightText(p.name, q)}</a>
+            </td>
+            <td style="text-align: right;" class="price-val">
+              ${p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) + ' <span class="currency">lei</span>' : '—'}
+            </td>
+            <td style="text-align: center;">
+              <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" class="btn-emag-external" title="Deschide pe eMAG">↗</a>
+            </td>
+          </tr>
+        `;
+            }).join('');
+
+            gridContainer.innerHTML = pagedItems.map(p => {
+                const emagUrl = getCatalogEmagSearchUrl(p.name);
+                return `
+          <div class="prod-card">
+            <div>
+              <div class="card-top">
+                <span class="nr-badge">#${p.nr}</span>
+                <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:var(--accent-blue); text-decoration:none; font-weight:600;">eMAG ↗</a>
+              </div>
+              <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" class="card-title-link">${highlightText(p.name, q)}</a>
+            </div>
+            <div class="card-price">
+              <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Preț BF</span>
+              <div class="price-val">
+                ${p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) + ' <span class="currency">lei</span>' : '—'}
+              </div>
+            </div>
+          </div>
+        `;
+            }).join('');
+
+            pageInfo.textContent = `Pagina ${currentPage.toLocaleString('ro-RO')} din ${totalPages.toLocaleString('ro-RO')}`;
+            prevBtn.disabled = currentPage <= 1;
+            firstBtn.disabled = currentPage <= 1;
+            nextBtn.disabled = currentPage >= totalPages;
+            lastBtn.disabled = currentPage >= totalPages;
+        }
+
+        window.setView = function (view) {
+            currentView = view;
+            document.getElementById('tableContainer').style.display = view === 'table' ? 'block' : 'none';
+            document.getElementById('gridContainer').style.display = view === 'grid' ? 'grid' : 'none';
+            document.getElementById('btnTableView').classList.toggle('active', view === 'table');
+            document.getElementById('btnGridView').classList.toggle('active', view === 'grid');
+        };
+
+        window.prevCatalogPage = function () {
+            if (currentPage > 1) {
+                currentPage--;
+                renderCatalogUI();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        };
+
+        window.nextCatalogPage = function () {
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderCatalogUI();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        };
+
+        window.goToCatalogPage = function (page) {
+            currentPage = page;
+            renderCatalogUI();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+        window.goToCatalogLastPage = function () {
+            currentPage = Math.ceil(filteredItems.length / itemsPerPage) || 1;
+            renderCatalogUI();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+        window.applyCatalogQuickFilter = function (keyword) {
+            document.getElementById('searchInput').value = keyword;
+            filterAndSortCatalog();
+        };
+
+        window.setCatalogPriceFilter = function (minVal, maxVal) {
+            document.getElementById('priceMin').value = minVal !== undefined && minVal > 0 ? minVal : '';
+            document.getElementById('priceMax').value = maxVal !== undefined ? maxVal : '';
+            filterAndSortCatalog();
+        };
+
+        window.resetCatalogFilters = function () {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('categoryFilter').value = 'ALL';
+            document.getElementById('priceMin').value = '';
+            document.getElementById('priceMax').value = '';
+            document.getElementById('sortBy').value = 'price-asc';
+            filterAndSortCatalog();
+        };
+
+        document.getElementById('searchInput').addEventListener('input', () => {
+            clearTimeout(catalogDebounce);
+            catalogDebounce = setTimeout(filterAndSortCatalog, 200);
+        });
+        document.getElementById('categoryFilter').addEventListener('change', filterAndSortCatalog);
+        document.getElementById('priceMin').addEventListener('input', () => {
+            clearTimeout(catalogDebounce);
+            catalogDebounce = setTimeout(filterAndSortCatalog, 200);
+        });
+        document.getElementById('priceMax').addEventListener('input', () => {
+            clearTimeout(catalogDebounce);
+            catalogDebounce = setTimeout(filterAndSortCatalog, 200);
+        });
+        document.getElementById('sortBy').addEventListener('change', filterAndSortCatalog);
+
+        // Initializare
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDealsData();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>jsfiddle example</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div class="app-container">
+  <!-- Header & Status -->
+  <header class="app-header">
+    <div class="header-content">
+      <h1>Catalog Oferte Black Friday 2026</h1>
+      <p class="subtitle">Index rapid pentru produsele oficiale de Black Friday</p>
+    </div>
+    <div class="status-box">
+      <span id="loadStatus">⏳ Se inițializează catalogul...</span>
+      <div class="stats-badge">
+        Total produse: <strong id="totalDisplay">0</strong>
+      </div>
+    </div>
+  </header>
+
+  <!-- Input fallback manual (ascuns implicit) -->
+  <div class="manual-upload-row">
+    <label for="jsonFileInput" class="btn-secondary">Încarcă products.json manual</label>
+    <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+  </div>
+
+  <!-- Zona de filtrare si comenzi -->
+  <section class="controls-panel">
+    <div class="search-box">
+      <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Caută după denumire, model sau #număr (ex: samsung s26 ultra, espressor)..." 
+        disabled
+      >
+    </div>
+
+    <div class="filters-grid">
+      <div class="control-group">
+        <label for="categoryFilter">Categorie:</label>
+        <select id="categoryFilter" disabled>
+          <option value="ALL">Toate categoriile</option>
+          <option value="Telefoane & Smartwatch">Telefoane & Smartwatch</option>
+          <option value="IT, PC & Laptopuri">IT, PC & Laptopuri</option>
+          <option value="Aspiratoare & Curățenie">Aspiratoare & Curățenie</option>
+          <option value="Electrocasnice Bucătărie">Electrocasnice Bucătărie</option>
+          <option value="Îngrijire Personală">Îngrijire Personală</option>
+          <option value="Climatizare & Casă">Climatizare & Casă</option>
+          <option value="Altele">Altele</option>
+        </select>
+      </div>
+
+      <div class="control-group price-inputs">
+        <label>Preț (lei):</label>
+        <div class="price-fields">
+          <input type="number" id="priceMin" placeholder="Min" min="0" disabled>
+          <span>—</span>
+          <input type="number" id="priceMax" placeholder="Max" min="0" disabled>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="sortBy">Sortare:</label>
+        <select id="sortBy" disabled>
+          <option value="price-asc">Preț: crescător</option>
+          <option value="price-desc">Preț: descrescător</option>
+          <option value="name-asc">Nume (A-Z)</option>
+          <option value="nr-asc">Număr catalog (#1-34k)</option>
+        </select>
+      </div>
+
+      <div class="control-group actions-group">
+        <button type="button" class="btn-reset" onclick="resetFilters()">Resetează filtre</button>
+      </div>
+    </div>
+
+    <!-- Quick filter chips -->
+    <div class="quick-tags">
+      <span>Filtre rapide:</span>
+      <button type="button" class="tag" onclick="applyQuickFilter('samsung')">Samsung</button>
+      <button type="button" class="tag" onclick="applyQuickFilter('iphone')">Apple</button>
+      <button type="button" class="tag" onclick="applyQuickFilter('dyson')">Dyson</button>
+      <button type="button" class="tag" onclick="applyQuickFilter('espressor')">Espressoare</button>
+      <button type="button" class="tag" onclick="applyQuickFilter('airfryer')">Airfryer</button>
+      <button type="button" class="tag" onclick="setPriceFilter(0, 100)">Sub 100 lei</button>
+      <button type="button" class="tag" onclick="setPriceFilter(100, 500)">100 - 500 lei</button>
+      <button type="button" class="tag" onclick="setPriceFilter(500, 2000)">500 - 2000 lei</button>
+    </div>
+  </section>
+
+  <!-- Rezultate si schimbare vizualizare -->
+  <section class="results-header">
+    <div class="results-count">
+      Găsite: <strong id="countDisplay">0</strong> produse
+    </div>
+    <div class="view-toggles">
+      <button type="button" id="btnTableView" class="view-btn active" onclick="setView('table')">Tabel</button>
+      <button type="button" id="btnGridView" class="view-btn" onclick="setView('grid')">Carduri</button>
+    </div>
+  </section>
+
+  <!-- Container Tabel -->
+  <main id="tableContainer" class="view-container">
+    <table class="products-table">
+      <thead>
+        <tr>
+          <th style="width: 70px;">Nr.</th>
+          <th>Denumire produs</th>
+          <th style="width: 150px; text-align: right;">Preț BF</th>
+          <th style="width: 70px; text-align: center;">eMAG</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr>
+          <td colspan="4" class="empty-state">Se încarcă catalogul...</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Container Grid Carduri -->
+  <main id="gridContainer" class="grid-container" style="display: none;"></main>
+
+  <!-- Paginare -->
+  <nav class="pagination-bar">
+    <button type="button" id="firstBtn" onclick="goToPage(1)" disabled>« Prima</button>
+    <button type="button" id="prevBtn" onclick="prevPage()" disabled>‹ Înapoi</button>
+    <span id="pageInfo">Pagina 1 din 1</span>
+    <button type="button" id="nextBtn" onclick="nextPage()" disabled>Înainte ›</button>
+    <button type="button" id="lastBtn" onclick="goToLastPage()" disabled>Ultima »</button>
+  </nav>
+</div>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>

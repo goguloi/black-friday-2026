@@ -113,7 +113,7 @@
         }
 
         .btn-fav:hover {
-            transform: scale(1.2);
+            transform: scale(1.25);
         }
 
         .btn-fav.active {
@@ -533,11 +533,8 @@
             </div>
         </header>
 
-        <!-- ========================================== -->
-        <!-- MOD 1: RAPORT REDUCERI PDF (CU FILTRARE PE COLAPSABILE) -->
-        <!-- ========================================== -->
+        <!-- MOD 1: RAPORT REDUCERI PDF -->
         <section id="viewDeals" class="view-mode-section active">
-
             <div class="controls-panel">
                 <div class="search-box">
                     <input type="text" id="dealsSearchInput"
@@ -575,9 +572,7 @@
             </div>
         </section>
 
-        <!-- ========================================== -->
-        <!-- MOD 2: CATALOG COMPLET IDENTIC (34K) -->
-        <!-- ========================================== -->
+        <!-- MOD 2: CATALOG COMPLET (34K) -->
         <section id="viewCatalog" class="view-mode-section">
             <div class="controls-panel">
                 <div class="search-box">
@@ -678,9 +673,7 @@
             </nav>
         </section>
 
-        <!-- ========================================== -->
-        <!-- MOD 3: VIZUALIZARE PRODUSE FAVORITE -->
-        <!-- ========================================== -->
+        <!-- MOD 3: FAVORITE -->
         <section id="viewFavs" class="view-mode-section">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
                 <h2>Produse Favorite Salvate (<span id="favListCount">0</span>)</h2>
@@ -694,9 +687,9 @@
                         <thead>
                             <tr>
                                 <th style="width: 40px; text-align: center;">❤️</th>
-                                <th style="width: 70px;">Identificator</th>
+                                <th style="width: 70px;">Număr</th>
                                 <th>Denumire produs</th>
-                                <th style="width: 140px; text-align: right;">Preț</th>
+                                <th style="width: 140px; text-align: right;">Preț BF</th>
                                 <th style="width: 90px; text-align: center;">Reducere</th>
                                 <th style="width: 50px; text-align: center;">eMAG</th>
                             </tr>
@@ -711,23 +704,42 @@
 
     <script>
         // =========================================================================
-        // MANAGEMENT FAVORITE (LOCALSTORAGE)
+        // MANAGEMENT FAVORITE UNIFICAT (PE BAZA DE IDENTIFICATOR COMUN)
         // =========================================================================
         let FAVORITES = JSON.parse(localStorage.getItem('bf_favs_2026') || '{}');
+
+        // Generam o cheie comuna normalizata bazata pe denumirea produsului
+        function getProductKey(name) {
+            if (!name) return '';
+            return normalizeText(name).replace(/[^a-z0-9]/g, '');
+        }
 
         function saveFavorites() {
             localStorage.setItem('bf_favs_2026', JSON.stringify(FAVORITES));
             updateFavBadge();
+            refreshAllFavIcons();
         }
 
-        function toggleFavorite(id, name, priceBf, priceEmag, discount, code, source) {
-            if (FAVORITES[id]) {
-                delete FAVORITES[id];
+        function toggleFavoriteByItem(itemObj) {
+            const key = getProductKey(itemObj.name);
+            if (!key) return;
+
+            if (FAVORITES[key]) {
+                delete FAVORITES[key];
             } else {
-                FAVORITES[id] = {id, name, price_bf: priceBf, price_emag: priceEmag, discount, code, source};
+                FAVORITES[key] = {
+                    key: key,
+                    nr: itemObj.nr || '',
+                    name: itemObj.name,
+                    price_bf: itemObj.price_bf || '',
+                    price_emag: itemObj.price_emag || '',
+                    discount: itemObj.discount || '',
+                    code: itemObj.code || '',
+                    source: itemObj.source || 'catalog'
+                };
             }
             saveFavorites();
-            refreshFavIcons();
+
             if (document.getElementById('viewFavs').classList.contains('active')) {
                 renderFavoritesUI();
             }
@@ -740,10 +752,10 @@
             if (fListEl) fListEl.textContent = count;
         }
 
-        function refreshFavIcons() {
+        function refreshAllFavIcons() {
             document.querySelectorAll('.btn-fav').forEach(btn => {
-                const id = btn.getAttribute('data-id');
-                if (FAVORITES[id]) {
+                const key = btn.getAttribute('data-prod-key');
+                if (key && FAVORITES[key]) {
                     btn.innerHTML = '❤️';
                     btn.classList.add('active');
                 } else {
@@ -757,7 +769,6 @@
             if (confirm('Sigur dorești să elimini toate produsele din lista de favorite?')) {
                 FAVORITES = {};
                 saveFavorites();
-                refreshFavIcons();
                 renderFavoritesUI();
             }
         }
@@ -775,12 +786,14 @@
                 const item = FAVORITES[k];
                 const url = buildEmagUrl(item.code, item.name);
                 const isNeg = (item.discount || '').includes('-');
+                const itemPayload = escapeQuotes(JSON.stringify(item));
+
                 return `
           <tr>
             <td style="text-align: center;">
-              <button type="button" class="btn-fav active" onclick="toggleFavorite('${escapeQuotes(item.id)}', '${escapeQuotes(item.name)}', '${escapeQuotes(item.price_bf)}', '${escapeQuotes(item.price_emag)}', '${escapeQuotes(item.discount)}', '${escapeQuotes(item.code)}', '${item.source}')" title="Elimină de la favorite">❤️</button>
+              <button type="button" class="btn-fav active" data-prod-key="${item.key}" onclick="toggleFavoriteByItem(${itemPayload})" title="Elimină de la favorite">❤️</button>
             </td>
-            <td><span class="nr-badge">${item.source === 'catalog' ? '#' + item.id.replace('cat_', '') : item.id.replace('pdf_', '#')}</span></td>
+            <td><span class="nr-badge">${item.nr ? '#' + item.nr : '—'}</span></td>
             <td>
               <a href="${url}" target="_blank" rel="noopener noreferrer" class="link-deal">${escapeHtml(item.name)}</a>
             </td>
@@ -809,9 +822,6 @@
             return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
         }
 
-        // =========================================================================
-        // UTILITARE TEXT & EMAG SEARCH
-        // =========================================================================
         function normalizeText(str) {
             if (!str) return '';
             return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -847,7 +857,7 @@
         }
 
         // =========================================================================
-        // 1. RAPORT REDUCERI PDF (CU FILTRARE PE FIECARE CATEGORIE)
+        // 1. RAPORT REDUCERI PDF
         // =========================================================================
         let DEALS_RAW_DATA = null;
         let dealsDebounce = null;
@@ -875,8 +885,8 @@
             } catch (err) {
                 container.innerHTML = `
           <div style="text-align: center; padding: 30px; background: var(--bg-card); border-radius: 8px;">
-            <p style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 8px;">⚠️ Fișierul <code>deals_05_11.json</code> lipsește din rădăcină.</p>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Rulează scriptul de extracție în folderul proiectului sau descarcă fișierul generat.</p>
+            <p style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 8px;">⚠️ Fișierul <code>deals_05_11.json</code> lipsește din rădăcina <code>D:\\bf\\</code>.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Adaugă fișierul generat în folderul proiectului și reîncarcă pagina.</p>
           </div>
         `;
             }
@@ -950,12 +960,24 @@
                     ${items.map(p => {
                     const url = buildEmagUrl(p.code, p.name);
                     const isNeg = (p.discount || '').includes('-');
-                    const favId = `pdf_${sec.id}_${p.nr}`;
-                    const isFav = !!FAVORITES[favId];
+                    const prodKey = getProductKey(p.name);
+                    const isFav = !!FAVORITES[prodKey];
+
+                    const itemData = {
+                        nr: p.nr,
+                        name: p.name,
+                        price_bf: p.price_bf,
+                        price_emag: p.price_emag,
+                        discount: p.discount,
+                        code: p.code,
+                        source: 'pdf'
+                    };
+                    const payloadStr = escapeQuotes(JSON.stringify(itemData));
+
                     return `
                         <tr>
                           <td style="text-align: center;">
-                            <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-id="${favId}" onclick="toggleFavorite('${favId}', '${escapeQuotes(p.name)}', '${escapeQuotes(p.price_bf)}', '${escapeQuotes(p.price_emag)}', '${escapeQuotes(p.discount)}', '${escapeQuotes(p.code)}', 'pdf')" title="Adaugă / Elimină din favorite">${isFav ? '❤️' : '🤍'}</button>
+                            <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleFavoriteByItem(${payloadStr})" title="Adaugă / Elimină din favorite">${isFav ? '❤️' : '🤍'}</button>
                           </td>
                           <td class="rank-cell">#${p.nr}</td>
                           <td>
@@ -1025,10 +1047,15 @@
             document.getElementById('btnModeCatalog').classList.toggle('active', mode === 'catalog');
             document.getElementById('btnModeFavs').classList.toggle('active', mode === 'favs');
 
-            if (mode === 'catalog' && ALL_PRODUCTS.length === 0) {
-                loadCatalogData();
-            }
-            if (mode === 'favs') {
+            if (mode === 'catalog') {
+                if (ALL_PRODUCTS.length === 0) {
+                    loadCatalogData();
+                } else {
+                    refreshAllFavIcons();
+                }
+            } else if (mode === 'deals') {
+                refreshAllFavIcons();
+            } else if (mode === 'favs') {
                 renderFavoritesUI();
             }
         };
@@ -1156,14 +1183,24 @@
 
             tableBody.innerHTML = pagedItems.map(p => {
                 const emagUrl = getCatalogEmagSearchUrl(p.name);
-                const favId = `cat_${p.nr}`;
-                const isFav = !!FAVORITES[favId];
+                const prodKey = getProductKey(p.name);
+                const isFav = !!FAVORITES[prodKey];
                 const priceStr = p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) : '';
+
+                const itemPayload = escapeQuotes(JSON.stringify({
+                    nr: p.nr,
+                    name: p.name,
+                    price_bf: priceStr,
+                    price_emag: '',
+                    discount: '',
+                    code: '',
+                    source: 'catalog'
+                }));
 
                 return `
           <tr class="clickable-row">
             <td style="text-align: center;">
-              <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-id="${favId}" onclick="toggleFavorite('${favId}', '${escapeQuotes(p.name)}', '${escapeQuotes(priceStr)}', '', '', '', 'catalog')" title="Adaugă / Elimină">${isFav ? '❤️' : '🤍'}</button>
+              <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleFavoriteByItem(${itemPayload})" title="Adaugă / Elimină">${isFav ? '❤️' : '🤍'}</button>
             </td>
             <td><span class="nr-badge">#${p.nr}</span></td>
             <td>
@@ -1181,9 +1218,19 @@
 
             gridContainer.innerHTML = pagedItems.map(p => {
                 const emagUrl = getCatalogEmagSearchUrl(p.name);
-                const favId = `cat_${p.nr}`;
-                const isFav = !!FAVORITES[favId];
+                const prodKey = getProductKey(p.name);
+                const isFav = !!FAVORITES[prodKey];
                 const priceStr = p.price !== null ? p.price.toLocaleString('ro-RO', {minimumFractionDigits: 2}) : '';
+
+                const itemPayload = escapeQuotes(JSON.stringify({
+                    nr: p.nr,
+                    name: p.name,
+                    price_bf: priceStr,
+                    price_emag: '',
+                    discount: '',
+                    code: '',
+                    source: 'catalog'
+                }));
 
                 return `
           <div class="prod-card">
@@ -1191,7 +1238,7 @@
               <div class="card-top">
                 <span class="nr-badge">#${p.nr}</span>
                 <div style="display:flex; align-items:center; gap:8px;">
-                  <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-id="${favId}" onclick="toggleFavorite('${favId}', '${escapeQuotes(p.name)}', '${escapeQuotes(priceStr)}', '', '', '', 'catalog')" title="Adaugă / Elimină">${isFav ? '❤️' : '🤍'}</button>
+                  <button type="button" class="btn-fav ${isFav ? 'active' : ''}" data-prod-key="${prodKey}" onclick="toggleFavoriteByItem(${itemPayload})" title="Adaugă / Elimină">${isFav ? '❤️' : '🤍'}</button>
                   <a href="${emagUrl}" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:var(--accent-blue); text-decoration:none; font-weight:600;">eMAG ↗</a>
                 </div>
               </div>

@@ -724,16 +724,14 @@
             return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
 
-        // =========================================================================
         // FAVORITE
-        // =========================================================================
         let FAVORITES = JSON.parse(localStorage.getItem('bf_favs_2026') || '{}');
 
         function cleanInvalidFavorites() {
             let modified = false;
             for (const k in FAVORITES) {
                 const item = FAVORITES[k];
-                if (!item || !item.name || item.name.trim() === '' || (!item.nr && !item.code && !item.key)) {
+                if (!item || !item.name || item.name.trim() === '' || item.name.includes('fără denumire') || (!item.nr && !item.code && !item.key)) {
                     delete FAVORITES[k];
                     modified = true;
                 }
@@ -794,7 +792,7 @@
 
         window.toggleCatalogFav = function (nr) {
             const p = ALL_PRODUCTS.find(x => x.nr === nr);
-            if (!p || !p.name) return;
+            if (!p || !p.name || p.name.includes('fără denumire')) return;
 
             const key = getCanonicalKey(p.name);
             if (!key) return;
@@ -864,9 +862,7 @@
             }).join('');
         }
 
-        // =========================================================================
-        // 1. RAPORT REDUCERI PDF
-        // =========================================================================
+        // RAPORT REDUCERI PDF
         let DEALS_RAW_DATA = null;
         let dealsDebounce = null;
 
@@ -1098,10 +1094,10 @@
 
             filteredItems.sort((a, b) => {
                 if (sort === 'name-asc') {
-                    const nameA = a.name ? a.name.trim() : '';
-                    const nameB = b.name ? b.name.trim() : '';
+                    const nameA = a.name && !a.name.includes('fără denumire') ? a.name.trim() : '';
+                    const nameB = b.name && !b.name.includes('fără denumire') ? b.name.trim() : '';
                     if (!nameA && !nameB) return 0;
-                    if (!nameA) return 1; // Mute elementele fără nume la sfârșit
+                    if (!nameA) return 1;
                     if (!nameB) return -1;
                     return nameA.localeCompare(nameB, 'ro');
                 }
